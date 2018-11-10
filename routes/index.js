@@ -2,17 +2,17 @@ const express = require('express');
 const router  = express.Router();
 const Goal = require("../models/Goal");
 
-function formatArray(history) {
-  let newHistory = history
-  if (history.length > 42) {
-    newHistory = newHistory.slice(history.length-42)
-  } else if (history.length < 42) {
-    for (let i = 0; i<42-history.length;i++) {
-      console.log("42 - history.length", 42-history.length)
-      newHistory.unshift(0)
+function formatArray(historyArr) {
+  if (historyArr.length < 42) {
+    const differens = 42 - historyArr.length;
+    for (let i = 0; i < differens; i++) {
+      historyArr.unshift(0)
     }
   } 
-  return newHistory
+  if (historyArr.length > 42) {
+    historyArr = historyArr.slice(historyArr.length-42)
+  }
+    return historyArr
 }
 
 /* GET home page */

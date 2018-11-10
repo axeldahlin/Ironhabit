@@ -17,18 +17,21 @@ a {
 .square {
   background-color: #444;
   color: #fff;
-  border-radius: 5px;
+  border: solid 1px black;
+
+  border-radius: 2px;
   /* padding: 20px; */
   /* font-size: 150%; */
 }
 
 .chart-wrapper {
+  padding: 5px;
   width: 300px;
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(6 ,10px);
-  grid-template-rows: repeat(7, 10px);
-  grid-auto-flow: column;
+  grid-template-columns: repeat(7 ,15px);
+  grid-template-rows: repeat(6, 15px);
+  grid-auto-flow: row;
 }
 
 .goals-wrapper {
@@ -44,9 +47,15 @@ a {
   align-items: center;
   justify-content: space-around;
   border: 1px solid black;
+  padding: 20px;
+  margin: 20px 0;
 }
 
-
-.test {
-  
+.color-code-0 {
+  background-color: #ecf0f1;
 }
+
+.color-code-1 {
+  background-color: #27ae60;
+}
+
