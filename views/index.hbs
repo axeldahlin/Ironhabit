@@ -1,5 +1,9 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+
+{{#if isConnected}}
+<h2>Welcome, {{currentUser.email}} </h2>
+{{else}}
+<h3>You are not currently logged in</h3>
+{{/if}}
 
 <div class="goals-wrapper">
   {{#each goals}}
@@ -10,7 +14,6 @@
         {{#each this.history}}
            <div class="square color-code-{{this}}"></div>
        {{/each}}
-       {{!-- {{lookup ../this.history @index}} --}}
     </div>
 
     <form action="" method="POST">

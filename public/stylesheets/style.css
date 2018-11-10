@@ -9,9 +9,7 @@ a {
   background-color: #444;
   color: #fff;
   border: solid 1px black;
-  border-radius: 2px;
-  /* padding: 20px; */
-  /* font-size: 150%; */ }
+  border-radius: 2px; }
 
 .chart-wrapper {
   padding: 5px;

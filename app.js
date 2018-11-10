@@ -73,6 +73,14 @@ app.use(session({
 }))
 app.use(flash());
 require('./passport')(app);
+
+app.use((req,res,next)=> {
+  res.locals.isConnected = !!req.user;
+  if (res.locals.isConnected) {
+    res.locals.currentUser = req.user
+  }
+  next();
+})
     
 
 const index = require('./routes/index');
