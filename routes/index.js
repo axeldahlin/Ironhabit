@@ -2,24 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const Goal = require("../models/Goal");
 
-
-// function formatArray(historyArr) {
-//   if (historyArr.length < 42) {
-//     const differens = 42 - historyArr.length;
-//     for (let i = 0; i < differens; i++) {
-//       historyArr.unshift(0)
-//     }
-//   } 
-//   if (historyArr.length > 42) {
-//     historyArr = historyArr.slice(historyArr.length-42)
-//   }
-//     return historyArr
-// }
-
-//Hi Axel, I rewrote the function to make it nicer and more flexible. 
-//I hope it does not complicate your merge. Please keep THIS version and delete the
-//version I commented out above. If this creates issues for you let me know so I can be more 
-//careful in the future. 
+ 
 function formatArray(arr,desiredLength) {
   for (let i = 0; i<desiredLength; i++) {
     arr.unshift(0);
@@ -34,7 +17,6 @@ router.get('/', (req, res, next) => {
   .then(goals=> {
     for (let i = 0; i<goals.length; i++) {
       goals[i].history = formatArray(goals[i].history,42)
-      console.log(goals[i].history)
     }
     res.render('index',{goals});
   })
@@ -57,6 +39,25 @@ router.post('/new-goal',(req,res,next)=> {
   })
   .catch(err=> {
     console.log("Error at POST /new-goal", err);
+  })
+})
+
+router.post('/update/:id', (req,res,next)=> {
+  let date = new Date();
+  let dateObject = {}
+  let currentDate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
+  console.log("CurrentDate", currentDate)
+  dateObject[currentDate] = 1
+  Goal.findByIdAndUpdate(req.params.id,{ 
+    // $push: {history: 1},
+    $push: {history2: dateObject}
+  })
+  .then(goal=> {
+    console.log("The value was pushed to goal!", goal.history2)
+    res.redirect('/');
+  })
+  .catch(err=> {
+    console.log("Error at POST Update/ID",err)
   })
 })
 
