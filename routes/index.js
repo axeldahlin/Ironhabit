@@ -20,15 +20,6 @@ function createDisplayData(goal) {
   return displayData;
 }
 
-function createDisplayData(goal) {
-  let displayArray = []
-  for (let week = 0; i<goal.history; week++) {
-    for 
-  }
-
-  return displayArray
-}
-
 
 
 
