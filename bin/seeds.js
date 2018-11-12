@@ -33,12 +33,12 @@ let goals = [
   {
     title: "Goal 1",
     history: [
-      {date: "2018-11-11", value: 0},
-      {date: "2018-11-12", value: 1},
-      {date: "2018-11-13", value: 0},
-      {date: "2018-11-14", value: 0},
-    ]
-  }
+      {date: "2018-11-08", value: 0},
+      {date: "2018-11-09", value: 1},
+      {date: "2018-11-10", value: 0},
+      {date: "2018-11-11", value: 1},
+      {date: "2018-11-12", value: 0}]
+  },
   // {
   //   title: "Goal 2",
   //   history: [1,1,1,1,1,1,0,1,0,0,1]

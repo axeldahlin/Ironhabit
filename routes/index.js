@@ -21,6 +21,25 @@ function createDisplayData(goal) {
   return displayData;
 }
 
+function createDisplayData2(goal, size) {
+  let today = new Date();
+  let dayToday = today.getDay();
+  let valuesOnly = goal.history.map(function(date){
+    return date.value
+  })
+  console.log(valuesOnly);
+  for (let i = 0; i<6-dayToday;i++){
+    valuesOnly.push(0);
+  }
+  for (let i = 0; i<size;i++) {
+    valuesOnly.unshift(0);
+  }
+
+  return valuesOnly.slice(valuesOnly.length-size)
+}
+
+
+
 
 /* GET home page */
 router.get('/', (req, res, next) => {
@@ -28,10 +47,7 @@ router.get('/', (req, res, next) => {
   .then(goals=> {
     
     for (let i = 0; i<goals.length; i++) {
-     
-
-
-      goals[i].displayData = createDisplayData(goals[i]);
+      goals[i].displayData = createDisplayData2(goals[i],42);
   
     }
     // console.log('DEBUG goals[]:', goals[])
@@ -47,14 +63,7 @@ router.get('/new-goal', (req,res,next)=> {
 router.post('/new-goal',(req,res,next)=> {
   Goal.create({
     title: req.body.title,
-    currentWeek: [0, 0, 0, 0, 0, 0, 0],
-    history: [
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-    ],
+    history: [],
     _user: req.user._id
   })
   .then(goal=> {
