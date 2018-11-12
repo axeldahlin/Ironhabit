@@ -15,12 +15,24 @@ function formatArray(arr,desiredLength) {
   return arr.slice(arr.length-desiredLength)
 }
 
+function createDisplayData(goal) {
+  let displayArray = []
+  for (let week = 0; i<goal.history; week++) {
+    for 
+  }
+
+  return displayArray
+}
+
+
+
 
 /* GET home page */
 router.get('/', (req, res, next) => {
   Goal.find()
   .then(goals=> {
     for (let i = 0; i<goals.length; i++) {
+      for (let i = 0; i<goals[])
       goals[i].history = formatArray(goals[i].history,42)
     }
     res.render('index',{goals});
