@@ -32,28 +32,31 @@ mongoose
 let goals = [
   {
     title: "Goal 1",
-    history: [1,1,1,1,1,1,0,1,0,0,1]
+    history: [
+      {date: 1}, {date: 2}
+    ]
   },
   {
-    title: "Goal 2",
-    history: [1,1,1,1,1,1,0,1,0,0,1]
+    title: "Goal 1",
+    history: [
+      {date: 1}, {date: 2}
+    ]
   },
-  {
-    title: "Goal 3",
-    history: [1,1,1,1,1,1,0,1,0,0,1]
-  },
-  {
-    title: "Goal 4",
-    history: [1,1,0,1,1,1,0,1,0,0,1]
-  },
-  {
-    title: "Goal 5",
-    history: [1,1,1,1,1,1,0,1,0,0,1]
-  },
-  {
-    title: "Goal 6",
-    history: [1,1,1,1,0,1,0,1,0,0,1]
-  },
+  //   title: "Goal 3",
+  //   history: [1,1,1,1,1,1,0,1,0,0,1]
+  // },
+  // {
+  //   title: "Goal 4",
+  //   history: [1,1,0,1,1,1,0,1,0,0,1]
+  // },
+  // {
+  //   title: "Goal 5",
+  //   history: [1,1,1,1,1,1,0,1,0,0,1]
+  // },
+  // {
+  //   title: "Goal 6",
+  //   history: [1,1,1,1,0,1,0,1,0,0,1]
+  // },
 ]
 
 Goal.deleteMany()
@@ -72,3 +75,7 @@ Goal.deleteMany()
   mongoose.disconnect()
   throw err
 })
+
+
+
+

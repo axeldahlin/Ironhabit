@@ -3,7 +3,9 @@ const Schema   = mongoose.Schema;
 
 const goalSchema = new Schema({
   title: String,
-  history: [Number],
+  history: [
+    {date: Number}
+  ],
   // recurring: Boolean,
   _user: {type: Schema.Types.ObjectId, ref: "User"}
 }, {
