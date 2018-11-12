@@ -6,7 +6,7 @@ const goalSchema = new Schema({
   // currentWeek: [Number],
   // history: [],
   items: [{
-    day: {type: String, match: /\d{4}-\d{2}-\d{2}/}, // ex: "2018-10-02"
+    date: {type: String, match: /\d{4}-\d{2}-\d{2}/}, // ex: "2018-10-02"
     value: {type: Number, default: 0}
   }],
   _user: {type: Schema.Types.ObjectId, ref: "User"}
