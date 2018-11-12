@@ -3,6 +3,7 @@ const router  = express.Router();
 const Goal = require("../models/Goal");
 
  
+<<<<<<< HEAD
 function createDisplayData(goal) {
 
   const lastWeek = goal.history.length - 1;
@@ -18,6 +19,18 @@ function createDisplayData(goal) {
 
   // console.log('DEBUG displayData:', displayData)
   return displayData;
+=======
+function formatArray(arr,desiredLength) {
+  let d = new Date();
+  let day = d.getDay();
+  for (let i = 0; i<6-day;i++){
+    arr.push(0)
+  }
+  for (let i = 0; i<desiredLength; i++) {
+    arr.unshift(0);
+  }
+  return arr.slice(arr.length-desiredLength)
+>>>>>>> 7e26a4b437669990535313025d402babca6604a7
 }
 
 
