@@ -3,10 +3,8 @@ const Schema   = mongoose.Schema;
 
 const goalSchema = new Schema({
   title: String,
-  history: [Number],
-  history2: [{
-    2018: []
-  }],
+  currentWeek: [Number],
+  history: [],
   _user: {type: Schema.Types.ObjectId, ref: "User"}
 }, {
   timestamps: {

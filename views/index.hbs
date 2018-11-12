@@ -5,13 +5,17 @@
 <h3>You are not currently logged in</h3>
 {{/if}}
 
+
+
+
+
 <div class="goals-wrapper">
   {{#each goals}}
   <div class="goal">
     <h1>{{this.title}}</h1>
 
     <div class="chart-wrapper">
-        {{#each this.history}}
+        {{#each this.displayData}}
            <div class="square color-code-{{this}}"></div>
        {{/each}}
     </div>

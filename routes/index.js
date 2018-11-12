@@ -3,16 +3,21 @@ const router  = express.Router();
 const Goal = require("../models/Goal");
 
  
-function formatArray(arr,desiredLength) {
-  let d = new Date();
-  let day = d.getDay();
-  for (let i = 0; i<6-day;i++){
-    arr.push(0)
-  }
-  for (let i = 0; i<desiredLength; i++) {
-    arr.unshift(0);
-  }
-  return arr.slice(arr.length-desiredLength)
+function createDisplayData(goal) {
+
+  const lastWeek = goal.history.length - 1;
+
+  let displayData = [
+    ...goal.history[lastWeek-4],
+    ...goal.history[lastWeek-3],
+    ...goal.history[lastWeek-2],
+    ...goal.history[lastWeek-1],
+    ...goal.history[lastWeek],
+    ...goal.currentWeek,
+  ];
+
+  // console.log('DEBUG displayData:', displayData)
+  return displayData;
 }
 
 function createDisplayData(goal) {
@@ -31,10 +36,15 @@ function createDisplayData(goal) {
 router.get('/', (req, res, next) => {
   Goal.find()
   .then(goals=> {
+    
     for (let i = 0; i<goals.length; i++) {
-      for (let i = 0; i<goals[])
-      goals[i].history = formatArray(goals[i].history,42)
+     
+
+
+      goals[i].displayData = createDisplayData(goals[i]);
+  
     }
+    // console.log('DEBUG goals[]:', goals[])
     res.render('index',{goals});
   })
 });
@@ -47,7 +57,14 @@ router.get('/new-goal', (req,res,next)=> {
 router.post('/new-goal',(req,res,next)=> {
   Goal.create({
     title: req.body.title,
-    history: [0],
+    currentWeek: [0, 0, 0, 0, 0, 0, 0],
+    history: [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+    ],
     _user: req.user._id
   })
   .then(goal=> {
@@ -60,22 +77,38 @@ router.post('/new-goal',(req,res,next)=> {
 })
 
 router.post('/update/:id', (req,res,next)=> {
-  // // let date = new Date();
-  // // let dateObject = {}
-  // // let currentDate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
-  // // console.log("CurrentDate", currentDate)
-  // dateObject[currentDate] = 1
-  Goal.findByIdAndUpdate(req.params.id,{ 
-    $push: {history: 1},
-    // $push: {history2: dateObject}
-  })
-  .then(goal=> {
-    console.log("The value was pushed to goal!", goal.history2)
-    res.redirect('/');
-  })
-  .catch(err=> {
-    console.log("Error at POST Update/ID",err)
-  })
+
+  const today = new Date().getDay();
+  let newValue;
+
+  Goal.findById(req.params.id)
+    .then(goal => {
+
+      console.log('DEBUG goal.currentWeek[today]:', goal.currentWeek[today])
+      if (goal.currentWeek[today] === 1) {
+
+        newValue = 0;
+
+      } else {
+        newValue = 1;
+      }
+      console.log(newValue)
+    })
+    .then( data => {
+      Goal.findByIdAndUpdate(req.params.id,{ 
+        $set: { 
+          [`currentWeek.${today}`]: `${newValue}`
+        }
+      })
+      .then(goal=> {
+        console.log("The value was pushed to goal!", goal.history2)
+        res.redirect('/');
+      })
+      .catch(err=> {
+        console.log("Error at POST Update/ID",err)
+      })
+
+    })
 })
 
 
