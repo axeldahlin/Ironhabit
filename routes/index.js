@@ -4,6 +4,11 @@ const Goal = require("../models/Goal");
 
  
 function formatArray(arr,desiredLength) {
+  let d = new Date();
+  let day = d.getDay();
+  for (let i = 0; i<6-day;i++){
+    arr.push(0)
+  }
   for (let i = 0; i<desiredLength; i++) {
     arr.unshift(0);
   }
@@ -43,14 +48,14 @@ router.post('/new-goal',(req,res,next)=> {
 })
 
 router.post('/update/:id', (req,res,next)=> {
-  let date = new Date();
-  let dateObject = {}
-  let currentDate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
-  console.log("CurrentDate", currentDate)
-  dateObject[currentDate] = 1
+  // // let date = new Date();
+  // // let dateObject = {}
+  // // let currentDate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
+  // // console.log("CurrentDate", currentDate)
+  // dateObject[currentDate] = 1
   Goal.findByIdAndUpdate(req.params.id,{ 
-    // $push: {history: 1},
-    $push: {history2: dateObject}
+    $push: {history: 1},
+    // $push: {history2: dateObject}
   })
   .then(goal=> {
     console.log("The value was pushed to goal!", goal.history2)
