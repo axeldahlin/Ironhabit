@@ -81,8 +81,20 @@ app.use((req,res,next)=> {
   }
   next();
 })
-    
 
+
+//  Fake cron task to run code every minute
+let lastMin = new Date().getMinutes()
+setInterval(() => {
+  let curMin = new Date().getMinutes()
+  if (curMin !== lastMin) {
+    console.log("New minute, I can perform some task")
+    // Check users if the failed or succeeded
+    lastMin = curMin
+  }
+}, 10000)
+
+    
 const index = require('./routes/index');
 app.use('/', index);
 
@@ -92,5 +104,4 @@ app.use('/', profile);
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
       
-
 module.exports = app;
