@@ -37,9 +37,6 @@ function createDisplayData2(goal, size) {
   return valuesOnly.slice(valuesOnly.length-size)
 }
 
-
-
-
 /* GET home page */
 router.get('/', (req, res, next) => {
   Goal.find()
@@ -75,26 +72,24 @@ router.post('/new-goal',(req,res,next)=> {
 })
 
 router.post('/update/:id', (req,res,next)=> {
-
   const today = new Date().getDay();
   let newValue;
-
   Goal.findById(req.params.id)
     .then(goal => {
-      if (goal.history[goal.history.length-1] === 1) {
+      if (goal.history[goal.history.length -1].value === 1) {
         newValue = 0;
       } else {
         newValue = 1;
       }
-      return goal
+      console.log(newValue)
+      return goal;
     })
-    .then(goal => {
-      console.log("goal", goal)
-      const index = goal.history.length - 1
-      let goalHistory = goal.history
-      console.log("goal.history.length",goal.history.length)
+    .then( goal => {
+      const index = goal.history.length - 1;
+      let updatedHistory = goal.history;
+      updatedHistory[index].value = newValue;
       Goal.findByIdAndUpdate(req.params.id,{ 
-   
+          history: updatedHistory
       })
       .then(goal=> {
         console.log("The value was pushed to goal!", goal.history2)
@@ -103,7 +98,6 @@ router.post('/update/:id', (req,res,next)=> {
       .catch(err=> {
         console.log("Error at POST Update/ID",err)
       })
-
     })
 })
 
