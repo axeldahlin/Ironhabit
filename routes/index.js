@@ -34,12 +34,8 @@ function createDisplayData2(goal, size) {
   for (let i = 0; i<size;i++) {
     valuesOnly.unshift(0);
   }
-
   return valuesOnly.slice(valuesOnly.length-size)
 }
-
-
-
 
 /* GET home page */
 router.get('/', (req, res, next) => {
@@ -76,28 +72,24 @@ router.post('/new-goal',(req,res,next)=> {
 })
 
 router.post('/update/:id', (req,res,next)=> {
-
   const today = new Date().getDay();
   let newValue;
-
   Goal.findById(req.params.id)
     .then(goal => {
-
-      console.log('DEBUG goal.currentWeek[today]:', goal.currentWeek[today])
-      if (goal.currentWeek[today] === 1) {
-
+      if (goal.history[goal.history.length -1].value === 1) {
         newValue = 0;
-
       } else {
         newValue = 1;
       }
       console.log(newValue)
+      return goal;
     })
-    .then( data => {
+    .then( goal => {
+      const index = goal.history.length - 1;
+      let updatedHistory = goal.history;
+      updatedHistory[index].value = newValue;
       Goal.findByIdAndUpdate(req.params.id,{ 
-        $set: { 
-          [`currentWeek.${today}`]: `${newValue}`
-        }
+          history: updatedHistory
       })
       .then(goal=> {
         console.log("The value was pushed to goal!", goal.history2)
@@ -106,7 +98,6 @@ router.post('/update/:id', (req,res,next)=> {
       .catch(err=> {
         console.log("Error at POST Update/ID",err)
       })
-
     })
 })
 
