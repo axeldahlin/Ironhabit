@@ -20,6 +20,21 @@ function createDisplayData(goal) {
   return displayData;
 }
 
+function createDisplayData2(goal, size) {
+  let today = new Date();
+  let dayToday = today.getDay();
+  let valuesOnly = goal.history.map(function(val){
+    return val.value
+  })
+  for (let i = 0; i<6-dayToday;i++){
+    valuesOnly.push(0);
+  }
+  for (let i = 0; i<size;i++) {
+    valuesOnly.unshift(0);
+  }
+  return valuesOnly.slice(valuesOnly.length-size)
+}
+
 
 
 
@@ -30,7 +45,7 @@ router.get('/', (req, res, next) => {
     
     for (let i = 0; i<goals.length; i++) {
      
-
+    
 
       goals[i].displayData = createDisplayData(goals[i]);
   
