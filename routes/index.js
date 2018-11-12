@@ -34,7 +34,6 @@ function createDisplayData2(goal, size) {
   for (let i = 0; i<size;i++) {
     valuesOnly.unshift(0);
   }
-
   return valuesOnly.slice(valuesOnly.length-size)
 }
 
@@ -82,22 +81,20 @@ router.post('/update/:id', (req,res,next)=> {
 
   Goal.findById(req.params.id)
     .then(goal => {
-
-      console.log('DEBUG goal.currentWeek[today]:', goal.currentWeek[today])
-      if (goal.currentWeek[today] === 1) {
-
+      if (goal.history[goal.history.length-1] === 1) {
         newValue = 0;
-
       } else {
         newValue = 1;
       }
-      console.log(newValue)
+      return goal
     })
-    .then( data => {
+    .then(goal => {
+      console.log("goal", goal)
+      const index = goal.history.length - 1
+      let goalHistory = goal.history
+      console.log("goal.history.length",goal.history.length)
       Goal.findByIdAndUpdate(req.params.id,{ 
-        $set: { 
-          [`currentWeek.${today}`]: `${newValue}`
-        }
+   
       })
       .then(goal=> {
         console.log("The value was pushed to goal!", goal.history2)
