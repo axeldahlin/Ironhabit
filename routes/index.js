@@ -4,10 +4,17 @@ const Goal = require("../models/Goal");
 
  
 function formatArray(arr,desiredLength) {
+const today = new Date();
+const day = today.getDay()
+
   for (let i = 0; i<desiredLength; i++) {
     arr.unshift(0);
   }
+
+
   return arr.slice(arr.length-desiredLength)
+
+  console.log('DEBUG :', arr.slice(arr.length-desiredLength))
 }
 
 
