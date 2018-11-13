@@ -11,20 +11,31 @@
 
 <div class="goals-wrapper">
   {{#each goals}}
-  <div class="goal">
-    <h1>{{this.title}}</h1>
-    <h2>{{this.streak}}</h2>
+    {{#if this.currentlyDoing}}
+      <div class="goal">
+        <h1>{{this.title}}</h1>
+        <h2>{{this.streak}}</h2>
 
-    <div class="chart-wrapper">
-        {{#each this.displayData}}
-           <div class="square color-code-{{this}}"></div>
-       {{/each}}
-    </div>
+        <div class="chart-wrapper">
+            {{#each this.displayData}}
+              <div class="square color-code-{{this}}"></div>
+          {{/each}}
+        </div>
+        <div>
+        <form action="/quitHabit/{{this._id}}" method="POST">
+          <button>Quit this habit.</button>
+        </form>
 
-    <form action="/update/{{this._id}}" method="POST">
-      <button>I did this today.</button>
-    </form>
+        <br>
 
-  </div>
+        <form action="/update/{{this._id}}" method="POST">
+          <button>I did this today.</button>
+        </form>
+
+        </div>
+
+
+      </div>
+  {{/if}}
   {{/each}}
 </div>

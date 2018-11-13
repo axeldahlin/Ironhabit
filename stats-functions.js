@@ -34,6 +34,10 @@ let numberWeeksAttempted = function(goal) {
 }
 
 
+
+
+
+
 exports.currentDaysStreak = currentDaysStreak
 exports.numberDaysAttempted = numberDaysAttempted
 exports.numberDaysSuccessful = numberDaysSuccessful
