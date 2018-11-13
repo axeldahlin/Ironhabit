@@ -1,31 +1,35 @@
 const express = require('express');
 const router  = express.Router();
 const Goal = require("../models/Goal");
-
-
  
-function createDisplayData(goal) {
-  const lastWeek = goal.history.length - 1;
-  let displayData = [
-    ...goal.history[lastWeek-4],
-    ...goal.history[lastWeek-3],
-    ...goal.history[lastWeek-2],
-    ...goal.history[lastWeek-1],
-    ...goal.history[lastWeek],
-    ...goal.currentWeek,
-  ];
-  // console.log('DEBUG displayData:', displayData)
-  return displayData;
+//Converts 1-2 digit numbers to 2 digits
+function twoDigits(n) {
+  if (n<10) return "0" + n
+  else return "" + n
 }
 
-function createDisplayData2(goal, size) {
+//returns current date in string YYYY-MM-DD
+function currentDate() {
   let today = new Date();
-  let dayToday = today.getDay();
+  let year = today.getFullYear()
+  let month = twoDigits(today.getMonth() + 1)
+  let date = twoDigits(today.getDate());
+  return year + "-" + month + "-" + date
+}
+
+//returns day of week 0-6
+function currentDay() {
+  let today = new Date()
+  return today.getDay();
+}
+
+function createDisplayData(goal, size) {
   let valuesOnly = goal.history.map(function(date){
     return date.value
   })
   console.log(valuesOnly);
-  for (let i = 0; i<6-dayToday;i++){
+  for (let i = 0; i<6-currentDay();i++){
+    console.log("currentDay: ", currentDay())
     valuesOnly.push(0);
   }
   for (let i = 0; i<size;i++) {
@@ -34,14 +38,14 @@ function createDisplayData2(goal, size) {
   return valuesOnly.slice(valuesOnly.length-size)
 }
 
+
 /* GET home page */
 router.get('/', (req, res, next) => {
   Goal.find()
   .then(goals=> {
     for (let i = 0; i<goals.length; i++) {
-      goals[i].displayData = createDisplayData2(goals[i],42);
+      goals[i].displayData = createDisplayData(goals[i],42);
     }
-    // console.log('DEBUG goals[]:', goals[])
     res.render('index',{goals});
   })
 });
@@ -50,12 +54,13 @@ router.get('/new-goal', (req,res,next)=> {
   res.render('new-goal')
 })
 
-
 router.post('/new-goal',(req,res,next)=> {
   Goal.create({
     title: req.body.title,
-    history: [],
-    _user: req.user._id
+    frequency: req.body.frequency,
+    history: [{date: currentDate(), value: 0}],
+    _user: req.user._id,
+    lastUpdate: currentDate()
   })
   .then(goal=> {
     console.log("Goal created: ", goal);
@@ -67,7 +72,6 @@ router.post('/new-goal',(req,res,next)=> {
 })
 
 router.post('/update/:id', (req,res,next)=> {
-  const today = new Date().getDay();
   let newValue;
   Goal.findById(req.params.id)
     .then(goal => {

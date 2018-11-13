@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Goal = require("../models/Goal");
 
+const User = require("../models/User");
+
 const bcryptSalt = 10;
 
 mongoose
@@ -18,16 +20,14 @@ mongoose
     console.error('Error connecting to mongo', err)
   });
 
-// let users = [
-//   {
-//     email: "alice",
-//     password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt)),
-//   },
-//   {
-//     email: "bob",
-//     password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt)),
-//   }
-// ]
+let users = [
+  {
+  email: "test@test",
+  firstName: "test",
+  password: "tes",
+  pastGoals: [{ title: 'goal', succes: true, frequency: 3, startDate: "2018-10-02"}],
+  }
+]
 
 let goals = [
   {
@@ -62,9 +62,9 @@ let goals = [
   // },
 ]
 
-Goal.deleteMany()
+User.deleteMany()
 .then(() => {
-  return Goal.create(goals)
+  return User.create(users)
 })
 .then(goalsCreated => {
   console.log(`${goalsCreated.length} goals created with the following id:`);
