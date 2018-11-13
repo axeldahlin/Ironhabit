@@ -103,7 +103,6 @@ setInterval(() => {
 //Updates a goal in Mongo by pushing {date:, value:} to history
 // array and updating lastUpdate field
 function updateDayGoal(goal) {
-  console.log("UpdateGoal called", goal)
   Goal.findByIdAndUpdate(goal._id, {
     lastUpdate: tools.currentDate(),
     $push: {
@@ -117,6 +116,7 @@ function updateDayGoal(goal) {
     console.log("Error at updateGoal",err)
   })
 }
+
 
 
 //Middlewear to check if there are un-updated goals

@@ -1,7 +1,7 @@
 
-const User = require("./models/User");
-const Goal = require("./models/Goal");
-const tools      = require('./time-functions')
+const User       = require("./models/User");
+const Goal       = require("./models/Goal");
+const tools      = require('./time-functions');
 
 
 let numberDaysSuccessful = function(goal) {
@@ -13,6 +13,7 @@ let numberDaysSuccessful = function(goal) {
 let numberDaysAttempted = function(goal) {
   return goal.history.length
 }
+
 
 let currentDaysStreak = function(goal) {
   let streakCounter = 0
@@ -29,15 +30,26 @@ let currentDaysStreak = function(goal) {
 }
 
 
-let numberWeeksAttempted = function(goal) {
-
+let addPointsToUser = function (goal,user) {
+  let promiseUser = User.findById(user._id)
+  let promiseGoal = Goal.findById(goal._id)
+  Promise.all([promiseUser,promiseGoal])
+  .then(res => {
+    console.log("Promise All res", res)
+  })
+  .catch(err=>{
+    console.log("Promise All error",err)
+  })
 }
+
+
+
 
 
 exports.currentDaysStreak = currentDaysStreak
 exports.numberDaysAttempted = numberDaysAttempted
 exports.numberDaysSuccessful = numberDaysSuccessful
-
+exports.addPointsToUser = addPointsToUser
 
 
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const Goal = require("../models/Goal");
+const User = require("../models/User");
 const tools      = require('../time-functions')
 const display      = require('../display-functions')
 const stats      = require('../stats-functions')
@@ -75,17 +76,72 @@ router.post('/new-goal', isLoggedIn, (req,res,next)=> {
 
 router.post('/update/:id', isLoggedIn, (req,res,next)=> {
   let newValue;
+  let pointChange;
+  let goalPromise = Goal.findById(req.params.id)
+  let userPromise = User.findById(req.user._id)
+  Promise.all([goalPromise,userPromise])
+  .then(result => {
+    let goal = result[0]
+    let user = result[1]
+    if (goal.history[goal.history.length - 1].value === 1) {
+      newValue = 0;
+      pointChange = -goal.pointValue
+    } else {
+      newValue = 1;
+      pointChange = goal.pointValue
+    }
+    return [goal,user]
+  })
+  .then(result => {
+    let goal = result[0]
+    let user = result[1]
+    let updatedDay = goal.history
+    updatedDay[goal.history.length-1].value = newValue;
+    Goal.findByIdAndUpdate(req.params.id,{
+      history: updatedDay
+    })
+    .then(goal=>{
+      console.log("goal value updated", goal)
+    })
+    .catch(err=> {
+      console.log("there was an error", err)
+    })
+    return [goal,user]
+  })
+  .then(result => {
+    let user = result[1]
+    User.findByIdAndUpdate(user._id, {
+      $inc: {totalPoints: pointChange}
+    })
+    .then(user=>{
+      console.log("User points updated", user)
+      res.redirect('/')
+    })
+    .catch(err=>{
+      console.log("error", err)
+    })
+  })
+  .catch(err=>{
+    console.log("Promise All error",err)
+  })
+})
+
+
+router.post('/deactivate/update/:id', isLoggedIn, (req,res,next)=> {
+  let newValue;
+  var pointChange;
   Goal.findById(req.params.id)
     .then(goal => {
       if (goal.history[goal.history.length -1].value === 1) {
         newValue = 0;
+        pointChange = -goal.pointValue
       } else {
         newValue = 1;
+        pointChange = goal.pointValue
       }
-      console.log(newValue)
       return goal;
     })
-    .then( goal => {
+    .then(goal => {
       const index = goal.history.length - 1;
       let updatedHistory = goal.history;
       updatedHistory[index].value = newValue;
@@ -94,11 +150,23 @@ router.post('/update/:id', isLoggedIn, (req,res,next)=> {
       })
       .then(goal=> {
         console.log("The value was pushed to goal!", goal.history)
-        res.redirect('/');
       })
       .catch(err=> {
         console.log("Error at POST Update/ID",err)
       })
+    })
+    .then(goal => {
+      stats.addPointsToUser(goal,req.user)
+      console.log("pointChange", pointChange)
+      console.log("req.user._id point updates??", req.user._id)
+      User.findByIdAndUpdate(req.user._id, {
+        totalPoints: pointChange
+      })
+      console.log("req.user",req.user)
+      res.redirect('/');
+    })
+    .catch(err => {
+      console.log("Some error at Post Update",err)
     })
 })
 

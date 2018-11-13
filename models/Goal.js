@@ -11,6 +11,7 @@ const goalSchema = new Schema({
   frequency: Number,
   lastUpdate: {type: Date, default: Date.now},
   nextWeekUpdate:  {type: Date, default: Date.now},
+  pointValue: {type: Number, default: 1},
   _user: {type: Schema.Types.ObjectId, ref: "User"}
 }, {
   timestamps: {

@@ -6,6 +6,7 @@ const userSchema = new Schema({
   firstName: String,
   password: String,
   avatarImgPath: {type: String, default: '/images/avatar.png'},
+  totalPoints: {type: Number, default: 0},
   pastGoals: [
     {
       title: String,

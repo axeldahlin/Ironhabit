@@ -9,6 +9,7 @@
 
 
 
+
 <div class="goals-wrapper">
   {{#each goals}}
   <div class="goal">
@@ -24,6 +25,8 @@
     <form action="/update/{{this._id}}" method="POST">
       <button>I did this today.</button>
     </form>
+
+    <h3>Point Value: {{this.pointValue}}</h3>
 
   </div>
   {{/each}}
