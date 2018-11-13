@@ -5,9 +5,7 @@ const Goal = require("../models/Goal");
 
  
 function createDisplayData(goal) {
-
   const lastWeek = goal.history.length - 1;
-
   let displayData = [
     ...goal.history[lastWeek-4],
     ...goal.history[lastWeek-3],
@@ -16,7 +14,6 @@ function createDisplayData(goal) {
     ...goal.history[lastWeek],
     ...goal.currentWeek,
   ];
-
   // console.log('DEBUG displayData:', displayData)
   return displayData;
 }
@@ -41,10 +38,8 @@ function createDisplayData2(goal, size) {
 router.get('/', (req, res, next) => {
   Goal.find()
   .then(goals=> {
-    
     for (let i = 0; i<goals.length; i++) {
       goals[i].displayData = createDisplayData2(goals[i],42);
-  
     }
     // console.log('DEBUG goals[]:', goals[])
     res.render('index',{goals});
@@ -100,6 +95,5 @@ router.post('/update/:id', (req,res,next)=> {
       })
     })
 })
-
 
 module.exports = router;

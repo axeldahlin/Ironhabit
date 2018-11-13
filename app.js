@@ -82,7 +82,6 @@ app.use((req,res,next)=> {
   next();
 })
 
-
 //  Fake cron task to run code every minute
 let lastMin = new Date().getMinutes()
 setInterval(() => {
@@ -94,7 +93,14 @@ setInterval(() => {
   }
 }, 10000)
 
-    
+
+function updateGoal() {
+  
+
+
+}
+
+
 const index = require('./routes/index');
 app.use('/', index);
 
