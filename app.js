@@ -14,6 +14,7 @@ const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
 const Goal       = require("./models/Goal");
 const tools      = require('./time-functions')
+const helper     = require('./helper-functions')
 
 
 const User       = require("./models/User");
@@ -100,59 +101,100 @@ setInterval(() => {
 }, 10000)
 
 
-//Updates a goal in Mongo by pushing {date:, value:} to history
-// array and updating lastUpdate field
-function updateDayGoal(goal) {
+
+
+//Weekly and Daily Updates. Updates a goal in Mongo by pushing {date:, value:} to history
+// array and updating lastUpdate field.
+
+//WEEKLY UPDATE
+function weeklyUpdate(goal) {
+  User.findByIdAndUpdate(goal._user, {
+    $push: {pastGoals: {
+      title: goal.title,
+      success: helper.determineWeekSuccess(goal),
+      frequency: goal.frequency,
+      endDate: tools.currentDate()
+    }}
+  })
+  .then(user=> {
+    Goal.findByIdAndUpdate(goal._id, {
+      nextWeekUpdate: tools.startDayOfFollowingWeek()
+    })
+    .then(goal => {
+      console.log("Weekly Update: goal  update", goal)
+    })
+    .catch(err=>{
+      console.log("Error at Weekly Update Goal Update",err)
+    })
+  })
+  .catch(err=>{
+    console.log("error at addWeekSummary",err)
+  })
+}
+
+//DAILY UPDATE
+function dailyUpdate(goal) {
   Goal.findByIdAndUpdate(goal._id, {
     lastUpdate: tools.currentDate(),
+    pointValue: helper.updateGoalPointValue(goal),
     $push: {
       history: {date: tools.currentDate(), value: 0}
     }
   })
   .then(goal=>{
-    console.log("Goal updated: ", goal)
+    console.log("dailyUpdate -- goal updated: ", goal)
   })
   .catch(err=> {
-    console.log("Error at updateGoal",err)
+    console.log("Error at dailyUpdate",err)
   })
 }
 
 
-
-//Middlewear to check if there are un-updated goals
-//and updates them with updateGoal()
-app.use((req,res,next)=> {
-  Goal.find({lastUpdate: {$lt: tools.currentDate()}})
-  .then(goals=>{
-    console.log("goals results daily3: ", goals)
-    for (let i = 0; i<goals.length; i++) {
-      console.log("updating daily goals", goals)
-      updateDayGoal(goals[i])
-    }
-  })
-  .catch(err=> {
-    console.log("error at apps.js", err)
-  })
-  next();
-})
-
 //Middlewear to check if the weekly update has been performed
 app.use((req,res,next)=> {
-  Goal.find({nextWeekUpdate: {$lte: new Date()}})
+  Goal.find({nextWeekUpdate: {$lte: tools.currentDate()}})
   .then(goals=>{
-    console.log('DEBUG goals resolved weekly:', goals)
+    console.log('GOALS in need of WEEKLY', goals.length, goals)
     for (let i = 0; i<goals.length; i++) {
       console.log("updating goals")
-      storeWeekSummary(goals[i])
+      // storeWeekSummary(goals[i])
+      weeklyUpdate(goals[i])
     }
+    next();
   })
   .catch(err=> {
-    console.log("error at apps.js", err)
+    console.log("ERROR at Weekly Update Middlewear", err)
   })
-  next();
 })
 
 
+
+//Daily Update: Middlewear to check if there are un-updated goals
+//and updates them with updateGoal()
+app.use((req,res,next)=> {
+  Goal.find({lastUpdate: {$lt: tools.currentDate()}})  
+  .then(goals=>{
+    console.log("Goals in need of DAILY update!!!!", goals.length, goals)
+    for (let i = 0; i<goals.length; i++) {
+      console.log("updating daily goals", goals[i])
+      dailyUpdate(goals[i])
+    }
+    next();
+  })
+  .catch(err=> {
+    console.log("ERROR at DAILY Update Middlewear", err)
+  })
+})
+
+
+
+
+
+
+
+
+
+//I Suggest we stop using this function
 function getWeekSummary(goal) {
     let today = tools.currentDate();
     let wasSuccessful = () => {

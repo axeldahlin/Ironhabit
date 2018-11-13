@@ -1,6 +1,7 @@
 
 {{#if isConnected}}
 <h2>Welcome, {{currentUser.email}} </h2>
+<h3>You have {{currentUser.totalPoints}} Points!</h3>
 {{else}}
 <h3>You are not currently logged in</h3>
 {{/if}}
@@ -15,7 +16,6 @@
     {{#if this.currentlyDoing}}
       <div class="goal">
         <h1>{{this.title}}</h1>
-        <h2>{{this.streak}}</h2>
 
         <div class="chart-wrapper">
             {{#each this.displayData}}
@@ -32,6 +32,8 @@
         <form action="/update/{{this._id}}" method="POST">
           <button>I did this today.</button>
         </form>
+
+        <h4>This goal is worth {{this.pointValue}} points.</h4>
 
         </div>
 
