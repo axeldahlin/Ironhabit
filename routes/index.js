@@ -1,35 +1,24 @@
 const express = require('express');
 const router  = express.Router();
 const Goal = require("../models/Goal");
- 
-//Converts 1-2 digit numbers to 2 digits
-function twoDigits(n) {
-  if (n<10) return "0" + n
-  else return "" + n
+const tools      = require('../time-functions')
+const display      = require('../display-functions')
+
+
+function isLoggedIn(req,res,next) {
+  if (req.user) return next();
+  else {
+    console.log("redirecting to home page");
+    res.redirect('auth/login');
+  }
 }
 
-//returns current date in string YYYY-MM-DD
-function currentDate() {
-  let today = new Date();
-  let year = today.getFullYear()
-  let month = twoDigits(today.getMonth() + 1)
-  let date = twoDigits(today.getDate());
-  return year + "-" + month + "-" + date
-}
-
-//returns day of week 0-6
-function currentDay() {
-  let today = new Date()
-  return today.getDay();
-}
 
 function createDisplayData(goal, size) {
   let valuesOnly = goal.history.map(function(date){
     return date.value
   })
-  console.log(valuesOnly);
-  for (let i = 0; i<6-currentDay();i++){
-    console.log("currentDay: ", currentDay())
+  for (let i = 0; i<6-tools.currentDay();i++){
     valuesOnly.push(0);
   }
   for (let i = 0; i<size;i++) {
@@ -41,7 +30,9 @@ function createDisplayData(goal, size) {
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  Goal.find()
+  Goal.find({
+    _user: req.user._id
+  })
   .then(goals=> {
     for (let i = 0; i<goals.length; i++) {
       goals[i].displayData = createDisplayData(goals[i],42);
@@ -50,19 +41,23 @@ router.get('/', (req, res, next) => {
   })
 });
 
+/* GET  Post a New Goal Page */
 router.get('/new-goal', (req,res,next)=> {
   res.render('new-goal')
 })
 
+//POST new goal to the database
 router.post('/new-goal',(req,res,next)=> {
   Goal.create({
     title: req.body.title,
     frequency: req.body.frequency,
-    history: [{date: currentDate(), value: 0}],
+    history: [{date: tools.currentDate(), value: 0}],
     _user: req.user._id,
-    lastUpdate: currentDate()
+    lastUpdate: tools.currentDate(),
+    nextWeekUpdate: tools.startDayOfFollowingWeek()
   })
   .then(goal=> {
+    console.log("startDayOfFollowingWeek()", tools.startDayOfFollowingWeek())
     console.log("Goal created: ", goal);
     res.redirect('/')
   })
@@ -70,6 +65,7 @@ router.post('/new-goal',(req,res,next)=> {
     console.log("Error at POST /new-goal", err);
   })
 })
+
 
 router.post('/update/:id', (req,res,next)=> {
   let newValue;
@@ -91,7 +87,7 @@ router.post('/update/:id', (req,res,next)=> {
           history: updatedHistory
       })
       .then(goal=> {
-        console.log("The value was pushed to goal!", goal.history2)
+        console.log("The value was pushed to goal!", goal.history)
         res.redirect('/');
       })
       .catch(err=> {

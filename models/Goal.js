@@ -10,7 +10,7 @@ const goalSchema = new Schema({
   }],
   frequency: Number,
   lastUpdate: {type: Date, default: Date.now},
-  lastWeekUpdate:  {type: Date, default: Date.now},
+  nextWeekUpdate:  {type: Date, default: Date.now},
   _user: {type: Schema.Types.ObjectId, ref: "User"}
 }, {
   timestamps: {
