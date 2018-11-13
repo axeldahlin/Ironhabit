@@ -138,11 +138,12 @@ app.use((req,res,next)=> {
 
 //Middlewear to check if the weekly update has been performed
 app.use((req,res,next)=> {
-  Goal.find({nextWeekUpdate: {$lte: tools.currentDate()}})
+  Goal.find({nextWeekUpdate: {$lte: new Date()}})
   .then(goals=>{
-    console.log("goals results weekly: ", goals)
+    console.log('DEBUG goals resolved weekly:', goals)
     for (let i = 0; i<goals.length; i++) {
-      console.log("updating weekly goals")
+      console.log("updating goals")
+      storeWeekSummary(goals[i])
     }
   })
   .catch(err=> {
@@ -152,39 +153,48 @@ app.use((req,res,next)=> {
 })
 
 
-function storePastGoal(goal) {
+function getWeekSummary(goal) {
+    let today = tools.currentDate();
+    let wasSuccessful = () => {
+      let lastSevenDays = goal.history.slice(-7); 
+      lastSevenDays = lastSevenDays.map(day => day.value);
+      let sumOfWeek = lastSevenDays.reduce((item, acc)=> {
+      return acc + item; 
+      },0)
+      if (sumOfWeek >= goal.frequency) return true;
+        return false;
+    }
+    return {
+      title: goal.title,
+      success: wasSuccessful(),
+      frequency: goal.frequency,
+      endDate: today,
+    }
+  }
 
-  const goalsToStore = [];
-  Goal.find({_user: id})
-    .then(goals => {
-      for (let i = 0; i < goals.length; i++) {
-        let today = currentDate();
-        let wasSuccessful = () => {
-          let lastSevenDays = goals[i].history.slice(-7); 
-          lastSevenDays = lastSevenDays.map(day => day.value);
-          let sumOfWeek = lastSevenDays.reduce((item, acc)=> {
-          return acc + item; 
-          },0)
-          if (sumOfWeek >= goals[i].frequency) return true;
-            return false;
-        }
-        let thisGoal = {
-          title: goals[i].title,
-          success: wasSuccessful(),
-          frequency: goals[i].frequency,
-          endDate: today,
-        }
-        goalsToStore.push(thisGoal)
-      }
+  function storeWeekSummary(goal) {
+    let summary = getWeekSummary(goal);
+    User.findByIdAndUpdate(goal._user, {
+      $push: {pastGoals: summary}
     })
-    .then(_ => {
-      User.findByIdAndUpdate(id, {
-        $push: {pastGoals: goalsToStore}
-      }).then(data => {
-        console.log('DEBUG data:', data)
+    .then(user => {
+
+   
+
+      const nextSunday = tools.startDayOfFollowingWeek();
+
+      console.log('DEBUG goal._id:', goal._id)
+
+
+
+      Goal.findByIdAndUpdate(goal._id, {
+        nextWeekUpdate: nextSunday
       })
-    }) 
-}
+      .then(goal=> {
+        console.log('DEBUG goal:', goal)
+      })
+    })
+  }
 
 const index = require('./routes/index');
 app.use('/', index);
