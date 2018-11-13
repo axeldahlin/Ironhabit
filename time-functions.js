@@ -14,6 +14,13 @@ const currentDate = function() {
   return year + "-" + month + "-" + date
 }
 
+const currentDateAsDate = function() {
+  let today = new Date();
+  return today
+}
+
+
+
 //returns day of week 0-6
 const currentDay = function() {
   let today = new Date()

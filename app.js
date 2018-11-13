@@ -124,14 +124,14 @@ function updateDayGoal(goal) {
 app.use((req,res,next)=> {
   Goal.find({lastUpdate: {$lt: tools.currentDate()}})
   .then(goals=>{
+    console.log("goals results daily3: ", goals)
     for (let i = 0; i<goals.length; i++) {
+      console.log("updating daily goals", goals)
       updateDayGoal(goals[i])
     }
-    // next();
   })
   .catch(err=> {
     console.log("error at apps.js", err)
-    
   })
   next();
 })
@@ -140,9 +140,9 @@ app.use((req,res,next)=> {
 app.use((req,res,next)=> {
   Goal.find({nextWeekUpdate: {$lte: tools.currentDate()}})
   .then(goals=>{
+    console.log("goals results weekly: ", goals)
     for (let i = 0; i<goals.length; i++) {
-      console.log("updating goals")
-      updateWeeklyGoal(goals[i])
+      console.log("updating weekly goals")
     }
   })
   .catch(err=> {
@@ -151,9 +151,9 @@ app.use((req,res,next)=> {
   next();
 })
 
-const id = "5beab0b597b5997be637ea1c";
 
-function storePastGoal(id) {
+function storePastGoal(goal) {
+
   const goalsToStore = [];
   Goal.find({_user: id})
     .then(goals => {
@@ -186,8 +186,6 @@ function storePastGoal(id) {
     }) 
 }
 
-
-storePastGoal(id);    
 const index = require('./routes/index');
 app.use('/', index);
 
