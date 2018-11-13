@@ -37,28 +37,10 @@ let goals = [
       {date: "2018-11-09", value: 1},
       {date: "2018-11-10", value: 0},
       {date: "2018-11-11", value: 1},
-      {date: "2018-11-12", value: 0}]
-  },
-  // {
-  //   title: "Goal 2",
-  //   history: [1,1,1,1,1,1,0,1,0,0,1]
-  // },
-  // {
-  //   title: "Goal 3",
-  //   history: [1,1,1,1,1,1,0,1,0,0,1]
-  // },
-  // {
-  //   title: "Goal 4",
-  //   history: [1,1,0,1,1,1,0,1,0,0,1]
-  // },
-  // {
-  //   title: "Goal 5",
-  //   history: [1,1,1,1,1,1,0,1,0,0,1]
-  // },
-  // {
-  //   title: "Goal 6",
-  //   history: [1,1,1,1,0,1,0,1,0,0,1]
-  // },
+      {date: "2018-11-12", value: 0}
+    ],
+    nextWeekUpdate: "2018-11-18"
+  }
 ]
 
 Goal.deleteMany()
