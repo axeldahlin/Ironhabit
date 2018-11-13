@@ -3,6 +3,7 @@ const router  = express.Router();
 const Goal = require("../models/Goal");
 const tools      = require('../time-functions')
 const display      = require('../display-functions')
+const stats      = require('../stats-functions')
 
 
 function isLoggedIn(req,res,next) {
@@ -29,25 +30,30 @@ function createDisplayData(goal, size) {
 
 
 /* GET home page */
-router.get('/', (req, res, next) => {
+router.get('/', isLoggedIn, (req, res, next) => {
   Goal.find({
     _user: req.user._id
   })
   .then(goals=> {
     for (let i = 0; i<goals.length; i++) {
       goals[i].displayData = createDisplayData(goals[i],42);
+      goals[i].streak = stats.currentDaysStreak(goals[i])
     }
     res.render('index',{goals});
   })
 });
 
 /* GET  Post a New Goal Page */
-router.get('/new-goal', (req,res,next)=> {
+router.get('/new-goal', isLoggedIn, (req,res,next)=> {
   res.render('new-goal')
 })
 
+router.get('/charts', (req,res,next)=>{
+  res.render('charts')
+})
+
 //POST new goal to the database
-router.post('/new-goal',(req,res,next)=> {
+router.post('/new-goal', isLoggedIn, (req,res,next)=> {
   Goal.create({
     title: req.body.title,
     frequency: req.body.frequency,
@@ -67,7 +73,7 @@ router.post('/new-goal',(req,res,next)=> {
 })
 
 
-router.post('/update/:id', (req,res,next)=> {
+router.post('/update/:id', isLoggedIn, (req,res,next)=> {
   let newValue;
   Goal.findById(req.params.id)
     .then(goal => {
