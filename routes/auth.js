@@ -36,19 +36,22 @@ router.post("/signup", (req, res, next) => {
       res.render("auth/signup", { message: "The email already exists" });
       return;
     }
-
     const salt = bcrypt.genSaltSync(bcryptSalt);
     const hashPass = bcrypt.hashSync(password, salt);
-
     const newUser = new User({
       email,
       password: hashPass
     });
-
     newUser.save()
     .then(() => {
-      res.redirect("/");
-    })
+      passport.authenticate('local', {
+        successRedirect: "/",
+        failureRedirect: "/auth/login",
+        failureFlash: true,
+        passReqToCallback: true
+      })(req, res, function () {
+        res.redirect('/');
+    })})
     .catch(err => {
       res.render("auth/signup", { message: "Something went wrong" });
     })

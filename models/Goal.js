@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const goalSchema = new Schema({
+  currentlyDoing: {type: Boolean, default: true},
   title: String,
   targetPerWeek: Number,
   history: [{

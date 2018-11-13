@@ -170,4 +170,18 @@ router.post('/deactivate/update/:id', isLoggedIn, (req,res,next)=> {
     })
 })
 
+
+
+
+
+
+
+
+router.post('/quitHabit/:id', isLoggedIn, (req,res,next)=> {
+  Goal.findByIdAndUpdate(req.params.id, {currentlyDoing: false})
+    .then(_ => {res.redirect('/');})
+})
+
+
+
 module.exports = router;
