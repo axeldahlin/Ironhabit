@@ -12,6 +12,7 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
+const Goal       = require("./models/Goal");
     
 
 mongoose
@@ -93,6 +94,63 @@ setInterval(() => {
     lastMin = curMin
   }
 }, 10000)
+
+
+//Converts 1-2 digit numbers to 2 digits
+function twoDigits(n) {
+  if (n<10) return "0" + n
+  else return "" + n
+}
+
+//returns current date in string YYYY-MM-DD
+function currentDate() {
+  let today = new Date();
+  let year = today.getFullYear()
+  let month = twoDigits(today.getMonth() + 1)
+  let date = twoDigits(today.getDate());
+  return year + "-" + month + "-" + date
+}
+
+
+//Updates a goal in Mongo by pushing {date:, value:} to history
+// array and updating lastUpdate field
+function updateDayGoal(goal) {
+  console.log("UpdateGoal called", goal)
+  Goal.findByIdAndUpdate(goal._id, {
+    lastUpdate: currentDate(),
+    $push: {
+      history: {date: currentDate(), value: 0}
+    }
+  })
+  .then(goal=>{
+    console.log("Goal updated: ", goal)
+  })
+  .catch(err=> {
+    console.log("Error at updateGoal",err)
+  })
+}
+
+
+//Middlewear to check if there are un-updated goals
+//and updates them with updateGoal()
+app.use((req,res,next)=> {
+  Goal.find({lastUpdate: {$lt: currentDate()}})
+  .then(goals=>{
+    for (let i = 0; i<goals.length; i++) {
+      updateDayGoal(goals[i])
+      
+    }
+    next();
+  })
+  .catch(err=> {
+    console.log("error at apps.js", err)
+    next();
+  })
+})
+
+
+
+
 
     
 const index = require('./routes/index');
