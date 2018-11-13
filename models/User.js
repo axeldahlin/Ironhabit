@@ -5,7 +5,7 @@ const userSchema = new Schema({
   email: String,
   firstName: String,
   password: String,
-  avatarImgPath: String,
+  avatarImgPath: {type: String, default: '/images/avatar.png'},
   pastGoals: [
     {
       title: String,
