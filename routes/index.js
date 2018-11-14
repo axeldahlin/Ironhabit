@@ -5,12 +5,12 @@ const User = require("../models/User");
 const tools      = require('../time-functions')
 const display      = require('../display-functions')
 const stats      = require('../stats-functions')
+const helper      = require('../helper-functions')
 
 
 function isLoggedIn(req,res,next) {
   if (req.user) return next();
   else {
-    console.log("redirecting to home page");
     res.redirect('auth/login');
   }
 }
@@ -38,9 +38,11 @@ router.get('/', isLoggedIn, (req, res, next) => {
   .then(goals=> {
     for (let i = 0; i<goals.length; i++) {
       goals[i].displayData = createDisplayData(goals[i],42);
-      goals[i].streak = stats.currentDaysStreak(goals[i])
     }
     res.render('index',{goals});
+  })
+  .catch(err=>{
+    console.log("error at GET /",err)
   })
 });
 
@@ -64,8 +66,6 @@ router.post('/new-goal', isLoggedIn, (req,res,next)=> {
     nextWeekUpdate: tools.startDayOfFollowingWeek()
   })
   .then(goal=> {
-    console.log("startDayOfFollowingWeek()", tools.startDayOfFollowingWeek())
-    console.log("Goal created: ", goal);
     res.redirect('/')
   })
   .catch(err=> {
@@ -75,46 +75,39 @@ router.post('/new-goal', isLoggedIn, (req,res,next)=> {
 
 
 router.post('/update/:id', isLoggedIn, (req,res,next)=> {
-  let newValue;
-  let pointChange;
   let goalPromise = Goal.findById(req.params.id)
   let userPromise = User.findById(req.user._id)
   Promise.all([goalPromise,userPromise])
-  .then(result => {
-    let goal = result[0]
+  .then(result => {         //retrives the goal&user objects from database and determines
+    let goal = result[0]    // new values for user.totalPoints & goal.history.value
     let user = result[1]
-    if (goal.history[goal.history.length - 1].value === 1) {
-      newValue = 0;
-      pointChange = -goal.pointValue
-    } else {
-      newValue = 1;
-      pointChange = goal.pointValue
-    }
-    return [goal,user]
+    let {newValue, pointChange} = helper.toggleValueAndPoints(goal) //helper to determine new values
+    return [goal,user,newValue, pointChange]
   })
-  .then(result => {
-    let goal = result[0]
+  .then(result => {          //Goal Update: history array      
+    let goal = result[0]    //with  a new day {date: , value: } object
     let user = result[1]
-    let updatedDay = goal.history
-    updatedDay[goal.history.length-1].value = newValue;
+    let pointChange = result[3]
+    let newHistory = goal.history                          //makes a copy
+    newHistory[goal.history.length-1].value = result[2];  //updates last element's val to newValue
     Goal.findByIdAndUpdate(req.params.id,{
-      history: updatedDay
+      history: newHistory                                 //replaces in Mongo
     })
     .then(goal=>{
-      console.log("goal value updated", goal)
+      console.log("goal value updated", goal.title)
     })
     .catch(err=> {
       console.log("there was an error", err)
     })
-    return [goal,user]
+    return [user,pointChange]
   })
-  .then(result => {
-    let user = result[1]
+  .then(result => {             //User Update: user's totalPoints based  
+    let user = result[0]        //on the pointValue of the goal
     User.findByIdAndUpdate(user._id, {
-      $inc: {totalPoints: pointChange}
+      $inc: {totalPoints: result[1]}
     })
     .then(user=>{
-      console.log("User points updated", user)
+      console.log("User points updated", user.totalPoints)
       res.redirect('/')
     })
     .catch(err=>{
@@ -157,8 +150,6 @@ router.post('/deactivate/update/:id', isLoggedIn, (req,res,next)=> {
     })
     .then(goal => {
       stats.addPointsToUser(goal,req.user)
-      console.log("pointChange", pointChange)
-      console.log("req.user._id point updates??", req.user._id)
       User.findByIdAndUpdate(req.user._id, {
         totalPoints: pointChange
       })
