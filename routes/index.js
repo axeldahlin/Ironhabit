@@ -176,4 +176,13 @@ router.post('/quitHabit/:id', isLoggedIn, (req,res,next)=> {
 
 
 
+/* GET home page */
+router.get('/api/myPerfomance', (req, res, next) => {
+
+
+  res.send({hello: 'test from API'})
+
+});
+
+
 module.exports = router;

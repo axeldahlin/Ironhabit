@@ -6,13 +6,15 @@
   <input type="submit" value="SAVE">
 </form>
 
-{{user}}
-
 
 <h1>Total Points: {{user.totalPoints}}</h1>
 
 <h1>Weekly Consistency: {{user.weeklyConsistency}}</h1>
 
+
+<h1> missed Days {{user.didHabitDays.missedDays}}</h1>
+
+<h1> Done Habits {{user.didHabitDays.doneHabits}}</h1>
 
 <h1>Top Goal: {{user.topGoal}}</h1>
 <h1>Highest Streak Value: {{user.highestStreakValue}}</h1>
@@ -26,9 +28,10 @@
   {{/each}}
 </div>
 
+<canvas id="myChart" width="400" height="400"></canvas>
 
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/javascripts/profile/profile.js"></script>
 
-<p> Done Habits {{user.didHabitDays.doneHabits}}</p>
-<p> missed Days {{user.didHabitDays.missedDays}}</p>
 
