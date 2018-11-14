@@ -1,9 +1,11 @@
+var ctx = document.getElementById("myChart").getContext('2d');
+
 axios.get('/api/myPerfomance')
   .then(response => {
-    // printTheChart(response.data.bpi)
+    console.log(response)
   })
 
-var ctx = document.getElementById("myChart").getContext('2d');
+
 
 
 
