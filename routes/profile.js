@@ -3,15 +3,17 @@ const router  = express.Router();
 const Goal = require("../models/Goal");
 const User = require("../models/User");
 const uploadCloud = require('../config/cloudinary.js');
+const stats      = require('../stats-functions')
 
 router.get('/profile', (req, res, next) => {
-
   const user = req.user;
-
-  console.log('DEBUG req.user:', req.user)
-
+  user.weeklyConsistency = stats.percentSuccessHabitWeeks(user)
+  Goal.findById({_user: user._id})
+  .then(goals=>{
+    [user.topGoal,user.highestStreakValue] = stats.determineLongestCurrentStreak(goals)
+  })
+  // user.yourUserStatistic = stats.yourStatisticsFunction(user)
   res.render('profile/profile', {user})
-
 });
 
 
