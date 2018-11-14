@@ -16,4 +16,13 @@
 <h1>Highest Streak Value: {{user.highestStreakValue}}</h1>
 
 
+<div class="goals-progress">
+  {{#each goals}}
+      {{this.title}}
+<progress max="100" value="25"></progress>
+<br>
+  {{/each}}
+</div>
+
+
 
