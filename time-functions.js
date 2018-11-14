@@ -6,7 +6,7 @@ const twoDigits = function(n) {
 
 //returns current date in string YYYY-MM-DD
 const currentDate = function() {
-  let today = new Date();
+  let today = new Date(2018,11,2);
   let year = today.getFullYear()
   let month = twoDigits(today.getMonth() + 1)
   let date = twoDigits(today.getDate());
@@ -14,7 +14,7 @@ const currentDate = function() {
 }
 
 const currentDateAsDate = function() {
-  let today = new Date(2018,10,26);
+  let today = new Date(2018,11,2);
   return today
 }
 
@@ -22,13 +22,13 @@ const currentDateAsDate = function() {
 
 //returns day of week 0-6
 const currentDay = function() {
-  let today = new Date()
+  let today = new Date(2018,11,2)
   return today.getDay();
 }
 
 //returns the date of the Sunday of the following week
 const startDayOfFollowingWeek = function() {
-  let today = new Date()
+  let today = new Date(2018,11,2)
   let result = new Date(today.getFullYear(),today.getMonth(),today.getDate())
   let date = result.getDate()
   let day = result.getDay()

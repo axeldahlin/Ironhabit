@@ -5,8 +5,6 @@ const User = require("../models/User");
 const uploadCloud = require('../config/cloudinary.js');
 const stats      = require('../stats-functions')
 
-
-
 router.get('/profile', (req, res, next) => {
 
   
