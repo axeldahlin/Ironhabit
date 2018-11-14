@@ -150,6 +150,8 @@ function dailyUpdate(goal) {
 }
 
 
+
+
 //Middlewear to check if the weekly update has been performed
 app.use((req,res,next)=> {
   Goal.find({nextWeekUpdate: {$lte: tools.currentDate()}})
