@@ -7,14 +7,22 @@ const stats      = require('../stats-functions')
 
 router.get('/profile', (req, res, next) => {
   const user = req.user;
+  console.log("user in /Profile", user)
   user.weeklyConsistency = stats.percentSuccessHabitWeeks(user)
-  Goal.findById({_user: user._id})
+  Goal.find({_user: user._id})
   .then(goals=>{
-    [user.topGoal,user.highestStreakValue] = stats.determineLongestCurrentStreak(goals)
+    console.log("user in then", user)
+    // [user.topGoal,user.highestStreakValue] = stats.determineLongestCurrentStreak(goals);
+    user.topGoal = stats.determineLongestCurrentStreak(goals)[0]
+    user.highestStreakValue = stats.determineLongestCurrentStreak(goals)[1]
+    res.render('profile/profile', {user})
   })
-  // user.yourUserStatistic = stats.yourStatisticsFunction(user)
-  res.render('profile/profile', {user})
+  .catch(err=>{
+    console.log("Error at /Profile", err)
+  })
 });
+
+
 
 
 router.post('/uploadAvatarImg/:id', uploadCloud.single('photo'), (req, res, next) => {
