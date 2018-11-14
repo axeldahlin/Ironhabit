@@ -22,7 +22,7 @@ const User       = require("./models/User");
     
 
 mongoose
-  .connect('mongodb://localhost/goals-project', {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
