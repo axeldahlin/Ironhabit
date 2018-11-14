@@ -81,7 +81,7 @@ router.post('/update/:id', isLoggedIn, (req,res,next)=> {
   .then(result => {         //retrives the goal&user objects from database and determines
     let goal = result[0]    // new values for user.totalPoints & goal.history.value
     let user = result[1]
-    let [newValue, pointChange] = helper.toggleValueAndPoints(goal) //helper to determine new values
+    let {newValue, pointChange} = helper.toggleValueAndPoints(goal) //helper to determine new values
     return [goal,user,newValue, pointChange]
   })
   .then(result => {          //Goal Update: history array      

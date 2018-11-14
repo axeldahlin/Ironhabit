@@ -11,7 +11,7 @@ let toggleValueAndPoints = function(goal) {
     newValue = 1;
     pointChange = goal.pointValue
   }
-  return [newValue,pointChange]
+  return {newValue,pointChange}
 }
 
 let updateGoalPointValue = function(goal) {

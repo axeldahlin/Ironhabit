@@ -30,17 +30,6 @@ let currentDaysStreak = function(goal) {
 }
 
 
-let addPointsToUser = function (goal,user) {
-  let promiseUser = User.findById(user._id)
-  let promiseGoal = Goal.findById(goal._id)
-  Promise.all([promiseUser,promiseGoal])
-  .then(res => {
-    console.log("Promise All res", res)
-  })
-  .catch(err=>{
-    console.log("Promise All error",err)
-  })
-}
 
 
 
@@ -49,7 +38,6 @@ let addPointsToUser = function (goal,user) {
 exports.currentDaysStreak = currentDaysStreak
 exports.numberDaysAttempted = numberDaysAttempted
 exports.numberDaysSuccessful = numberDaysSuccessful
-exports.addPointsToUser = addPointsToUser
 
 
 
