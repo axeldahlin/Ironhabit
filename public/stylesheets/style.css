@@ -40,6 +40,14 @@ a {
 .color-code-1 {
   background-color: #27ae60; }
 
+.color-code-today-active {
+  background-color: #27ae60;
+  border: 2px solid black; }
+
+.color-code-today-inactive {
+  background-color: #ecf0f1;
+  border: 2px solid black; }
+
 img {
   width: 200px;
   height: 200px;

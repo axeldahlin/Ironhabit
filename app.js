@@ -244,6 +244,9 @@ app.use('/', index);
 const profile = require('./routes/profile');
 app.use('/', profile);
 
+const about = require('./routes/about');
+app.use('/', about);
+
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
       

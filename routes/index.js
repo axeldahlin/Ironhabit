@@ -20,6 +20,11 @@ function createDisplayData(goal, size) {
   let valuesOnly = goal.history.map(function(date){
     return date.value
   })
+  if (valuesOnly[valuesOnly.length - 1] === 1) {
+    valuesOnly[valuesOnly.length - 1] = "today-active"
+  } else {
+    valuesOnly[valuesOnly.length - 1] = "today-inactive"
+  }
   for (let i = 0; i<6-tools.currentDay();i++){
     valuesOnly.push(0);
   }

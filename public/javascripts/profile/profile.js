@@ -1,5 +1,5 @@
 axios.get('/api/myPerfomance')
-  .then(response =>{
+  .then(response => {
     // printTheChart(response.data.bpi)
   })
 
@@ -9,7 +9,7 @@ var ctx = document.getElementById("myChart").getContext('2d');
 
 printTheChart();
 
-function printTheChart (data) {
+function printTheChart(data) {
 
   const label = 3;
   const costs = 3;

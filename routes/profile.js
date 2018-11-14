@@ -15,6 +15,9 @@ router.get('/profile', (req, res, next) => {
     user.topGoal = stats.determineLongestCurrentStreak(goals)[0]
     user.highestStreakValue = stats.determineLongestCurrentStreak(goals)[1]
     user.didHabitDays = stats.getSuccessDay(goals);
+    for (let i = 0; i<goals.length; i++) {
+      goals[i].dailySuccesses = stats.numberDailySuccessesGoal(goals[i])
+    }
     res.render('profile/profile', {user,goals})
   })
   .catch(err=>{

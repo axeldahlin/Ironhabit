@@ -55,10 +55,14 @@ let determineLongestCurrentStreak = function(goals) {
 }
 
 
+let numberDailySuccessesGoal = function(goal) {
+  return goal.history.filter(day=>{return day.value===1}).length
+}
+
+
+
+
 let getSuccessDay = function(goals) {
-
-  // console.log('DEBUG goals:', goals)
-
   let doneHabits = 0;
   let missedDays = 0;
   for (let i = 0; i < goals.length; i++) {
@@ -82,6 +86,7 @@ exports.getSuccessDay = getSuccessDay
 exports.currentDaysStreak = currentDaysStreak
 exports.numberDaysAttempted = numberDaysAttempted
 exports.numberDaysSuccessful = numberDaysSuccessful
+exports.numberDailySuccessesGoal = numberDailySuccessesGoal
 exports.percentSuccessHabitWeeks = percentSuccessHabitWeeks
 exports.determineLongestCurrentStreak = determineLongestCurrentStreak
 
