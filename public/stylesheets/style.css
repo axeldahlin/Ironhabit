@@ -48,6 +48,10 @@ a {
   background-color: #ecf0f1;
   border: 2px solid black; }
 
+canvas {
+  width: 200px;
+  height: 200px; }
+
 img {
   width: 200px;
   height: 200px;

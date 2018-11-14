@@ -1,30 +1,33 @@
 var ctx = document.getElementById("myChart").getContext('2d');
 
-axios.get('/api/myPerfomance')
-  .then(response => {
-    console.log(response)
+const ourApi = axios.create({
+  baseURL: '/api/userdata'
+})
+
+
+ourApi.get()
+  .then(res => {
+    console.log("Response from Axios GET", res.data)
+    // var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+      datasets: [{
+          data: Object.values(res.data),
+          backgroundColor: [
+          'green',
+          'red'
+      ]
+      }],
+      // These labels appear in the legend and in the tooltips when hovering different arcs
+      labels: [
+          'Done :)',
+          'Missed :('
+      ],
+    }
+    });
+  })
+  .catch(err=>{
+    console.log("Error at axios GET", err)
   })
 
-
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-    datasets: [{
-        data: [10, 20, 30],
-        backgroundColor: [
-        'rbb(200, 0, 0)',
-        'Yellow',
-        'Blue'
-    ]
-    }],
-
-    // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: [
-        'Red',
-        'Yellow',
-        'Blue'
-    ],
-    
-}
-});

@@ -125,6 +125,17 @@ router.post('/update/:id', isLoggedIn, (req,res,next)=> {
   })
 })
 
+router.get('/api/userdata', (req,res,next)=> {
+  let user = req.user
+  Goal.find({_user: user.id})
+  .then(goals=>{
+    res.json(stats.getSuccessDay(goals))
+  })
+  .catch(err=> {
+    console.log("Error at api/username",err)
+  })
+})
+
 
 router.post('/deactivate/update/:id', isLoggedIn, (req,res,next)=> {
   let newValue;
