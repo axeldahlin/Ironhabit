@@ -5,18 +5,21 @@ const User = require("../models/User");
 const uploadCloud = require('../config/cloudinary.js');
 const stats      = require('../stats-functions')
 
+
 router.get('/profile', (req, res, next) => {
-
-  
   const user = req.user;
-  
-  stats.getSuccessDay(user)
-  // console.log('DEBUG req.user:', req.user)
+  user.weeklyConsistency = stats.percentSuccessHabitWeeks(user)
+  Goal.find({_user: user._id})
+  .then(goals=>{
+    let succesStats = stats.getSuccessDay(user, goals);
+    console.log('DEBUG succesStats:', succesStats)
+    console.log('DEBUG user:', user)
 
-  res.render('profile/profile', {user})
 
-
-
+    // [user.topGoal,user.highestStreakValue] = stats.determineLongestCurrentStreak(goals);
+    res.render('profile/profile', {user});
+  })
+  // user.yourUserStatistic = stats.yourStatisticsFunction(user)
 });
 
 
