@@ -11,9 +11,9 @@ var myChart = new Chart(ctx, {
     datasets: [{
         data: [10, 20, 30],
         backgroundColor: [
-        'rbb(200, 0, 0)',
-        'Yellow',
-        'Blue'
+        'rgb(200, 0, 0)',
+        'yellow',
+        'blue'
     ]
     }],
 
