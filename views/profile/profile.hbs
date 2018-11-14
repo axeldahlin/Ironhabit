@@ -6,9 +6,6 @@
   <input type="submit" value="SAVE">
 </form>
 
-{{user}}
-
-
 <h1>Total Points: {{user.totalPoints}}</h1>
 
 <h1>Weekly Consistency: {{user.weeklyConsistency}}</h1>
@@ -21,7 +18,7 @@
 <div class="goals-progress">
   {{#each goals}}
       {{this.title}}
-<progress max="100" value="25"></progress>
+<progress max="{{this.history.length}}" value="{{this.dailySuccesses}}"></progress>
 <br>
   {{/each}}
 </div>
@@ -32,3 +29,4 @@
 <p> Done Habits {{user.didHabitDays.doneHabits}}</p>
 <p> missed Days {{user.didHabitDays.missedDays}}</p>
 
+<script src="/javascripts/profile/profile.js"></script>
