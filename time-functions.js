@@ -37,6 +37,10 @@ const startDayOfFollowingWeek = function() {
   return result
 }
 
+
+
+const userId = "5beb1bead6f52a2c5105072c";
+
 function getPastHabits(wasSuccess, userId) {
 
 
