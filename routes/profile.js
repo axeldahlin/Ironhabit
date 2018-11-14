@@ -12,15 +12,10 @@ router.get('/profile', (req, res, next) => {
   user.weeklyConsistency = stats.percentSuccessHabitWeeks(user)
   Goal.find({_user: user._id})
   .then(goals=>{
-    // [user.topGoal,user.highestStreakValue] = stats.determineLongestCurrentStreak(goals);
     user.topGoal = stats.determineLongestCurrentStreak(goals)[0]
-    user.highestStreakValue = stats.determineLongestCurrentStreak(goals)[1];
-
+    user.highestStreakValue = stats.determineLongestCurrentStreak(goals)[1]
     user.didHabitDays = stats.getSuccessDay(goals);
-
-    console.log('DEBUG user.didHabitsDays:', user.didHabitDays)
-
-    res.render('profile/profile', {user})
+    res.render('profile/profile', {user,goals})
   })
   .catch(err=>{
     console.log("Error at /Profile", err)
