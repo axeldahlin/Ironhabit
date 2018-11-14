@@ -3,14 +3,21 @@ const router  = express.Router();
 const Goal = require("../models/Goal");
 const User = require("../models/User");
 const uploadCloud = require('../config/cloudinary.js');
+const stats      = require('../stats-functions')
+
+
 
 router.get('/profile', (req, res, next) => {
 
+  
   const user = req.user;
-
-  console.log('DEBUG req.user:', req.user)
+  
+  stats.getSuccessDay(user)
+  // console.log('DEBUG req.user:', req.user)
 
   res.render('profile/profile', {user})
+
+
 
 });
 

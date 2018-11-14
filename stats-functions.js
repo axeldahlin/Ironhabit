@@ -33,8 +33,25 @@ let currentDaysStreak = function(goal) {
 
 
 
+let getSuccessDay = function(user, goals) {
+  let doneHabits = 0;
+  let missedDays = 0;
+  for (let i = 0; i < goals.length; i++) {
+    for (let j = 0; j < goals[i].history.length; j++) {
+      if (goals[i].history[j] === 0) missedDays++
+      if (goals[i].history[j] === 1) doneHabits++
+    }    
+  }
+  return {
+    doneHabits,
+    missedDays
+  }
+}
 
 
+
+
+exports.getSuccessDay = getSuccessDay
 exports.currentDaysStreak = currentDaysStreak
 exports.numberDaysAttempted = numberDaysAttempted
 exports.numberDaysSuccessful = numberDaysSuccessful
