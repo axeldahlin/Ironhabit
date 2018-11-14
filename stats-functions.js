@@ -55,13 +55,18 @@ let determineLongestCurrentStreak = function(goals) {
 }
 
 
-let getSuccessDay = function(user, goals) {
+let getSuccessDay = function(goals) {
+
+  // console.log('DEBUG goals:', goals)
+
   let doneHabits = 0;
   let missedDays = 0;
   for (let i = 0; i < goals.length; i++) {
+    // console.log('DEBUG goals[i].history:', goals[i].history)
     for (let j = 0; j < goals[i].history.length; j++) {
-      if (goals[i].history[j] === 0) missedDays++
-      if (goals[i].history[j] === 1) doneHabits++
+      // console.log('DEBUG goals[i].history[j]:', goals[i].history[j])
+      if (goals[i].history[j].value === 0) missedDays++
+      if (goals[i].history[j].value === 1) doneHabits++
     }    
   }
   return {
