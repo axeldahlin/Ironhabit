@@ -3,28 +3,26 @@ axios.get('/api/myPerfomance')
     // printTheChart(response.data.bpi)
   })
 
+
 var ctx = document.getElementById("myChart").getContext('2d');
-
-
-
-printTheChart();
-
-function printTheChart(data) {
-
-  const label = 3;
-  const costs = 3;
-
-  let ctx = document.getElementById('myChart').getContext('2d');
-  let chart = new Chart(ctx, {
+var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: label,
-      datasets: [{
-        label: "Stock Chart",
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: costs,
-      }]
-    }
-  });
-};
+    datasets: [{
+        data: [10, 20, 30],
+        backgroundColor: [
+        'rbb(200, 0, 0)',
+        'Yellow',
+        'Blue'
+    ]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: [
+        'Red',
+        'Yellow',
+        'Blue'
+    ],
+    
+}
+});
