@@ -41,6 +41,9 @@ button:hover {
   height: 500px;
   color: white; }
 
+.about-text {
+  color: white; }
+
 .main-container {
   padding: 50px 0;
   display: flex;
