@@ -4,7 +4,6 @@ const Schema   = mongoose.Schema;
 const goalSchema = new Schema({
   currentlyDoing: {type: Boolean, default: true},
   title: String,
-  targetPerWeek: Number,
   history: [{
     date: {type: String, match: /\d{4}-\d{2}-\d{2}/}, // ex: "2018-10-02"
     value: {type: Number, default: 0}
