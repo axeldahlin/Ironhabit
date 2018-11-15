@@ -1,38 +1,56 @@
-<h1>Profile:</h1>
-<img src="{{user.avatarImgPath}}" alt="">
-<form action="/uploadAvatarImg/{{user.id}}" method="post" enctype="multipart/form-data">
-  <input type="file" name="photo">
+ 
+ <div class="profile-img-container">
+  <img src="{{user.avatarImgPath}}" alt="">
+  <form action="/uploadAvatarImg/{{user.id}}" method="post" enctype="multipart/form-data">
+    <input type="file" name="photo">
+    <br>
+    <input type="submit" value="SAVE">
+  </form>
+
+ </div>
+
+<div class="profile-container">
+
+  <p class="encourage-message">Hey Axel, look what what you have accomplished!</p>
+
+  <div class="goals-progress">
+    {{#each goals}}
+        {{this.title}}
+  <progress max="{{this.history.length}}" value="{{this.dailySuccesses}}"></progress>
   <br>
-  <input type="submit" value="SAVE">
-</form>
+    {{/each}}
+  </div>
 
-<h1>Total Points: {{user.totalPoints}}</h1>
+  <canvas id="myChart" width="200" height="200"></canvas>
 
-<h1>Weekly Consistency: {{user.weeklyConsistency}}</h1>
+  <div class="stats-component">
+    <p><i class="fas fa-award"></i> Total Points: {{user.totalPoints}}</p>
+  </div>
+
+  <div class="stats-component">
+    <p><i class="fas fa-fist-raised"></i> Weekly Consistency: {{user.weeklyConsistency}}</p>
+  </div>
+
+  <div class="stats-component">
+    <p><i class="fas fa-trophy"></i> Highest Streak Value: {{user.highestStreakValue}}</p>
+  </div> 
+
+  <div class="stats-component">
+    <p><i class="fas fa-check"></i> Done Habits: {{user.didHabitDays.doneHabits}}</p>
+  </div>  
+
+  <div class="stats-component">
+    <p><i class="fas fa-heart"></i> Top Goal: {{user.topGoal}}</p>
+  </div>  
 
 
-<h1> missed Days {{user.didHabitDays.missedDays}}</h1>
-
-<h1> Done Habits {{user.didHabitDays.doneHabits}}</h1>
-
-<h1>Top Goal: {{user.topGoal}}</h1>
-<h1>Highest Streak Value: {{user.highestStreakValue}}</h1>
+  <div class="stats-component">
+    <p><i class="fas fa-skull-crossbones"></i> Missed Days: {{user.didHabitDays.missedDays}}</p>
+  </div>
 
 
-<div class="goals-progress">
-  {{#each goals}}
-      {{this.title}}
-<progress max="{{this.history.length}}" value="{{this.dailySuccesses}}"></progress>
-<br>
-  {{/each}}
+
 </div>
-
-<canvas id="myChart" width="400" height="400"></canvas>
-
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-
-
-
 <script src="/javascripts/profile/profile.js"></script>
