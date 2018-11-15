@@ -3,7 +3,8 @@
   font-family: 'Archivo', sans-serif; }
 
 body {
-  font-family: 'Archivo', sans-serif; }
+  font-family: 'Archivo', sans-serif;
+  background: #222121; }
 
 a {
   color: #00B7FF; }
@@ -12,6 +13,9 @@ a {
   background: #222121 !important; }
 
 button:focus {
+  outline: 0; }
+
+select:focus {
   outline: 0; }
 
 button:hover {
@@ -208,8 +212,6 @@ img {
   .daily-consistency {
     width: 310px;
     height: 310px; } }
-<<<<<<< HEAD
-=======
 
 /* ================================= 
   Signed Out Styles 
@@ -232,13 +234,33 @@ img {
 /* ================================= 
   create Goals Styles Styles 
 ==================================== */
-.create-coal-bg {
-  background: #068587;
-  min-height: calc(100vh - 72px); }
+.habit-input, select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; }
 
-.create-coal-container {
-  width: 70%;
-  margin: 0 auto; }
->>>>>>> 5308952db119e9fcea9b7c53e526eef7ff6d3085
+select {
+  background: #222121;
+  color: white; }
+
+.form-btn {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  width: 200px;
+  background: #068587;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-decoration: none;
+  border: #222121; }
+
+.login-container {
+  width: 300px; }
 
 /*# sourceMappingURL=style.css.map */
