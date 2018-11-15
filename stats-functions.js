@@ -79,9 +79,14 @@ let getSuccessDay = function(goals) {
   }
 }
 
+function didHabitToday(goal) {
+  if (goal.history[goal.history.length -1].value === 1) return true;
+  return false;
+}
 
 
 
+exports.didHabitToday = didHabitToday
 exports.getSuccessDay = getSuccessDay
 exports.currentDaysStreak = currentDaysStreak
 exports.numberDaysAttempted = numberDaysAttempted

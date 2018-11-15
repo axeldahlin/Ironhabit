@@ -1,54 +1,63 @@
-<div class="container">
-
-
-
-{{#if isConnected}}
-<h2>Welcome, {{currentUser.email}} </h2>
-<h3>You have {{currentUser.totalPoints}} Points!</h3>
-{{else}}
-<h3>You are not currently logged in</h3>
+<div class="header">
+  {{#if isConnected}}
+    <h2 class="welcome-message">Welcome, {{currentUser.email}} </h2>
+    <h2 class="welcome-message">You have {{currentUser.totalPoints}} Points!</h2>
+  {{else}}
+    <h3>You are not currently logged in</h3>
 {{/if}}
+</div>
 
-
-
-
-
-
-<div class="goals-wrapper">
+<div class="main-container home-container">
   {{#each goals}}
-    {{#if this.currentlyDoing}}
-      <div class="goal">
-        <div class="goal-title">
-          <h1>{{this.title}}</h1>
-        </div>
-        
-        <div class="chart-wrapper">
-            {{#each this.displayData}}
-              <div class="square color-code-{{this}}"></div>
-          {{/each}}
-        </div>
-        <div>
-        
-
-        <br>
-
-        <form action="/update/{{this._id}}" method="POST">
-          <button type="submit" class="btn btn-primary">I did this today.</button>
-        </form>
-
-        <div>
-          <h4>This goal is worth {{this.pointValue}} points.</h4>
-        <h3>Current Streak: {{this.streak}}</h3>
-        </div>
-       
-        <form action="/quitHabit/{{this._id}}" method="POST">
-          <button type="submit" class="btn btn-sm btn-danger">X</button>
-        </form>
-        </div>
+  {{#if this.currentlyDoing}}
 
 
+
+    <div class="goal">
+        <h2 class="goal-title">{{this.title}}</h2>
+      <div class="chart-wrapper">
+          {{#each this.displayData}}
+            <div class="square color-code-{{this}}"></div>
+        {{/each}}
       </div>
+   
+   
+    
+    
+      <div>
+      <br>
+      <form action="/update/{{this._id}}" method="POST">
+        <button type="submit" class="did-habit-btn">
+           {{#if this.didHabitToday}}
+            <i class="fas fa-check"></i>
+          {{else}}
+            <i class="fas fa-clock"></i>
+          {{/if}}
+        </button>
+      </form>
+
+
+      <div class="goal-stats-component">
+        <h4>Todays this habits is worth</h4>
+        <h2>{{this.pointValue}} points</h2>
+      </div>
+
+      <div class="goal-stats-component">
+
+        <h4>Current Streak</h4>
+        <h2>{{this.streak}} days</h2>
+      </div>
+      
+      <form action="/quitHabit/{{this._id}}" method="POST">
+        <button type="submit" class="btn btn-sm btn-danger delete-btn">X</button>
+      </form>
+      </div>
+    </div>
   {{/if}}
   {{/each}}
-</div>
+
+ 
+
+
+
 </div>

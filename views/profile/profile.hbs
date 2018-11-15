@@ -1,5 +1,5 @@
  
- <div class="profile-img-container">
+ <div class="header">
   <img src="{{user.avatarImgPath}}" alt="">
   <form action="/uploadAvatarImg/{{user.id}}" method="post" enctype="multipart/form-data">
     <input type="file" name="photo">
@@ -9,7 +9,7 @@
 
  </div>
 
-<div class="profile-container">
+<div class="main-container">
 
   <p class="encourage-message">Hey Axel, look what what you have accomplished!</p>
 
@@ -51,6 +51,15 @@
 
 
 </div>
+
+
+
+
+
+
+
+
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="/javascripts/profile/profile.js"></script>

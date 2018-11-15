@@ -43,7 +43,8 @@ router.get('/', isLoggedIn, (req, res, next) => {
   .then(goals=> {
     for (let i = 0; i<goals.length; i++) {
       goals[i].displayData = createDisplayData(goals[i],42);
-      goals[i].streak = stats.currentDaysStreak(goals[i])
+      goals[i].streak = stats.currentDaysStreak(goals[i]);
+      goals[i].didHabitToday = stats.didHabitToday(goals[i]);
     }
     res.render('index',{goals});
   })
