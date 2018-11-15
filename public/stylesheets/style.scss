@@ -27,8 +27,7 @@ a {
 
 .goals-wrapper {
   display: flex;
-  flex-direction: column;
-  border: 1px solid black;
+  flex-direction: column
 }
 
 .goal {
@@ -39,6 +38,13 @@ a {
   border: 1px solid black;
   padding: 20px;
   margin: 20px 0;
+  border-radius: 20px;
+}
+
+
+
+.goal-title {
+  width: 200px;
 }
 
 .color-code-0 {

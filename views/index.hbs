@@ -1,3 +1,6 @@
+<div class="container">
+
+
 
 {{#if isConnected}}
 <h2>Welcome, {{currentUser.email}} </h2>
@@ -15,31 +18,37 @@
   {{#each goals}}
     {{#if this.currentlyDoing}}
       <div class="goal">
-        <h1>{{this.title}}</h1>
-        <h2>Current Streak: {{this.streak}}</h2>
-
+        <div class="goal-title">
+          <h1>{{this.title}}</h1>
+        </div>
+        
         <div class="chart-wrapper">
             {{#each this.displayData}}
               <div class="square color-code-{{this}}"></div>
           {{/each}}
         </div>
         <div>
-        <form action="/quitHabit/{{this._id}}" method="POST">
-          <button>Quit this habit.</button>
-        </form>
+        
 
         <br>
 
         <form action="/update/{{this._id}}" method="POST">
-          <button>I did this today.</button>
+          <button type="submit" class="btn btn-primary">I did this today.</button>
         </form>
 
-        <h4>This goal is worth {{this.pointValue}} points.</h4>
-
+        <div>
+          <h4>This goal is worth {{this.pointValue}} points.</h4>
+        <h3>Current Streak: {{this.streak}}</h3>
+        </div>
+       
+        <form action="/quitHabit/{{this._id}}" method="POST">
+          <button type="submit" class="btn btn-sm btn-danger">X</button>
+        </form>
         </div>
 
 
       </div>
   {{/if}}
   {{/each}}
+</div>
 </div>
