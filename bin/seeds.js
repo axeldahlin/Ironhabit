@@ -234,20 +234,21 @@ User.deleteMany()
 .catch(err=> {
   console.log("Error at user creation")
 })
-// .then(()=> {
-// Goal.deleteMany()
-// .then(()=> {
-//   console.log("creating goals...")
-//   return Goal.create(goals)
-// })
-// .then(goalsCreated => {
-//   console.log("goalsCreated",goalsCreated)
-//   console.log(`${goalsCreated.length} goals created with the following id:`);
-//   console.log(goalsCreated.map(g => g._id));
-// })
-// .catch(err=> {
-//   console.log("error with goal creation", err)
-// })
+
+
+Goal.deleteMany()
+.then(()=> {
+  console.log("creating goals...")
+  return Goal.create(goals)
+})
+.then(goalsCreated => {
+  console.log("goalsCreated",goalsCreated)
+  console.log(`${goalsCreated.length} goals created with the following id:`);
+  console.log(goalsCreated.map(g => g._id));
+})
+.catch(err=> {
+  console.log("error with goal creation", err)
+})
 
 .then(() => {
   // Close properly the connection to Mongoose
