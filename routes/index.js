@@ -11,7 +11,7 @@ const helper      = require('../helper-functions')
 function isLoggedIn(req,res,next) {
   if (req.user) return next();
   else {
-    res.redirect('auth/login');
+    res.render('signedOut');
   }
 }
 

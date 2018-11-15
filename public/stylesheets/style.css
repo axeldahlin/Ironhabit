@@ -17,6 +17,9 @@ button:focus {
 button:hover {
   cursor: pointer; }
 
+/* ================================= 
+  General Styles
+==================================== */
 .header {
   padding: 50px 0;
   display: flex;
@@ -43,6 +46,15 @@ button:hover {
   background: white;
   border-radius: 20px; }
 
+#navbarTogglerDemo02 {
+  margin-bottom: 0; }
+
+.nav-link {
+  text-align: right; }
+
+/* ================================= 
+  Profile Page Styles 
+==================================== */
 .encourage-message {
   color: #068587;
   font-size: 30px;
@@ -59,19 +71,10 @@ button:hover {
   margin-right: auto;
   width: 90px; }
 
-#pie-chart {
+#myChart {
   width: 200px !important;
   height: 200px !important;
   margin-bottom: 20px; }
-
-#bar-graph {
-  width: 330px !important;
-  height: 300px !important;
-  margin-bottom: 20px; }
-
-.daily-consistency {
-  width: 310px;
-  height: 310px; }
 
 img {
   width: 200px;
@@ -87,6 +90,9 @@ img {
 .stats-component {
   font-size: 20px; }
 
+/* ================================= 
+  Home Page Styles
+==================================== */
 .welcome-message {
   font-weight: 800;
   font-size: 45px; }
@@ -190,6 +196,46 @@ img {
     flex-grow: 1;
     margin: 20px; }
   .goal:first-child {
-    margin-top: 20px; } }
+    margin-top: 20px; }
+  #pie-chart {
+    width: 200px !important;
+    height: 200px !important;
+    margin-bottom: 20px; }
+  #bar-graph {
+    width: 330px !important;
+    height: 300px !important;
+    margin-bottom: 20px; }
+  .daily-consistency {
+    width: 310px;
+    height: 310px; } }
+
+/* ================================= 
+  Signed Out Styles 
+==================================== */
+.signed-out-btn-div {
+  width: 100%; }
+
+.signed-out-btn-div a {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  width: 200px;
+  background: #068587;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-decoration: none; }
+
+/* ================================= 
+  create Goals Styles Styles 
+==================================== */
+.create-coal-bg {
+  background: #068587;
+  min-height: calc(100vh - 72px); }
+
+.create-coal-container {
+  width: 70%;
+  margin: 0 auto; }
 
 /*# sourceMappingURL=style.css.map */

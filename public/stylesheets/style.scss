@@ -27,8 +27,9 @@ button:hover {
   cursor: pointer;
 }
 
-
-// General Styles ***************************************
+/* ================================= 
+  General Styles
+==================================== */
 
 
 .header {
@@ -62,9 +63,22 @@ button:hover {
     border-radius: 20px;
   }
   
+  #navbarTogglerDemo02 {
+    margin-bottom: 0;
+
+  }
   
-  // Profile Page Styles ***************************************
+  .nav-link {
+    text-align: right;
   
+  }
+
+  
+  
+  
+/* ================================= 
+  Profile Page Styles 
+==================================== */
   
   
   .encourage-message {
@@ -111,8 +125,9 @@ img {
   font-size: 20px;
 }
 
-// Home Page Styles ***************************************
-
+/* ================================= 
+  Home Page Styles
+==================================== */
 .welcome-message {
   font-weight: 800;
   font-size: 45px;
@@ -121,7 +136,7 @@ img {
 .home-container {
   background: #222121;
   padding-top: 0;
-  min-height:calc(100vh - 500px)
+  min-height:calc(100vh - 500px);
 }
 
 
@@ -281,4 +296,42 @@ img {
 @media (min-width: 1200px) {
 
 
+}
+
+
+/* ================================= 
+  Signed Out Styles 
+==================================== */
+.signed-out-btn-div {
+  width: 100%;
+  
+
+ 
+}
+.signed-out-btn-div a {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  width: 200px;
+  background: #068587;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-decoration: none;
+}
+
+/* ================================= 
+  create Goals Styles Styles 
+==================================== */
+.create-coal-bg {
+  background: #068587;
+  min-height:calc(100vh - 72px);
+
+
+}
+
+.create-coal-container {
+  width: 70%;
+  margin: 0 auto;
 }
