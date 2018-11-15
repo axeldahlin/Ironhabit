@@ -1,9 +1,16 @@
 var ctx = document.getElementById("myChart").getContext('2d');
 
+
+
+
 const ourApi = axios.create({
   baseURL: '/api/userdata'
 })
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 95c590b578172e7fbe54148f52d4481ab4943f98
 ourApi.get()
   .then(res => {
     console.log("Response from Axios GET", res.data)
