@@ -231,6 +231,9 @@ User.deleteMany()
   console.log(`${usersCreated.length} users created with the following id:`);
   console.log(usersCreated.map(u => u._id));
 })
+.catch(err=> {
+  console.log("Error at user creation")
+})
 // .then(()=> {
 // Goal.deleteMany()
 // .then(()=> {
