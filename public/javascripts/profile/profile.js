@@ -17,7 +17,7 @@ ourApi.get()
             data: Object.values(res.data.successDaysTotal),
             backgroundColor: [
             'green',
-            'red'
+            '#d5dbd2'
         ]
       }],
       // These labels appear in the legend and in the tooltips when hovering different arcs
@@ -41,10 +41,12 @@ ourApi.get()
         datasets: [{
           data: Object.values(res.data.dailySuccessRate),
           backgroundColor: [
-            "green",
-            "yellow",
-            "red",
-            "blue"
+            "#068587",
+            "black",
+            "#068587",
+            "black",
+            "#068587",
+            "black"
           ]
         }],
         labels: Object.keys(res.data.dailySuccessRate)

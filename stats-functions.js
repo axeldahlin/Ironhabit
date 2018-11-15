@@ -6,7 +6,7 @@ const tools      = require('./time-functions');
 
 let convertToPercentageString = function(float) {
   let p = float*100
-  return p.toString() + "%"
+  return p.toString().slice(0,5) + "%"
 }
 
 let numberDaysSuccessful = function(goal) {

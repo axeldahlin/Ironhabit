@@ -58,7 +58,7 @@ button:hover {
 .encourage-message {
   color: #068587;
   font-size: 30px;
-  width: 200px;
+  width: 300px;
   margin-bottom: 20px; }
 
 .main-container form {
@@ -71,7 +71,7 @@ button:hover {
   margin-right: auto;
   width: 90px; }
 
-#myChart {
+#pie-chart {
   width: 200px !important;
   height: 200px !important;
   margin-bottom: 20px; }

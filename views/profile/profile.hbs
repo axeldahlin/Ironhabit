@@ -11,7 +11,7 @@
 
 <div class="main-container">
 
-  <p class="encourage-message">Hey Axel, look what what you have accomplished!</p>
+  <p class="encourage-message">Look what you have accomplished so far.</p>
 
   {{!-- <div class="goals-progress">
     {{#each goals}}
@@ -22,13 +22,13 @@
   </div> --}}
 
 
-  <h2>Daily Consistency for Each Goal</h2>
+  <h3>Daily Consistency for Each Goal</h3>
  <canvas id="pie-chart" width="200" height="200"></canvas>
 
  
+<br>
 
-
-  <h2>Daily Consistency</h2>
+  <h3>Daily Consistency</h3>
 <canvas id="bar-graph" width="200" height="200"></canvas>
   
 
@@ -45,16 +45,15 @@
   </div> 
 
   <div class="stats-component">
-    <p><i class="fas fa-check"></i> Done Habits: {{user.didHabitDays.doneHabits}}</p>
-  </div>  
-
-  <div class="stats-component">
     <p><i class="fas fa-heart"></i> Top Goal: {{user.topGoal}}</p>
   </div>  
 
+  <div class="stats-component">
+    <p><i class="fas fa-check"></i> Habits Completed: {{user.didHabitDays.doneHabits}}</p>
+  </div>  
 
   <div class="stats-component">
-    <p><i class="fas fa-skull-crossbones"></i> Missed Days: {{user.didHabitDays.missedDays}}</p>
+    <p><i class="fas fa-skull-crossbones"></i> Habits Skipped: {{user.didHabitDays.missedDays}}</p>
   </div>
 
 
