@@ -94,10 +94,19 @@ a {
   margin-right: auto;
   width: 90px; }
 
-#myChart {
+#pie-chart {
   width: 200px !important;
   height: 200px !important;
   margin-bottom: 20px; }
+
+#bar-graph {
+  width: 330px !important;
+  height: 300px !important;
+  margin-bottom: 20px; }
+
+.daily-consistency {
+  width: 310px;
+  height: 310px; }
 
 img {
   width: 200px;

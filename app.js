@@ -243,6 +243,9 @@ function getWeekSummary(goal) {
 const index = require('./routes/index');
 app.use('/', index);
 
+const api = require('./routes/api');
+app.use('/', api);
+
 const profile = require('./routes/profile');
 app.use('/', profile);
 

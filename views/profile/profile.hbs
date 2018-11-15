@@ -13,15 +13,24 @@
 
   <p class="encourage-message">Hey Axel, look what what you have accomplished!</p>
 
-  <div class="goals-progress">
+  {{!-- <div class="goals-progress">
     {{#each goals}}
         {{this.title}}
   <progress max="{{this.history.length}}" value="{{this.dailySuccesses}}"></progress>
   <br>
     {{/each}}
-  </div>
+  </div> --}}
 
-  <canvas id="myChart" width="200" height="200"></canvas>
+
+  <h2>Daily Consistency for Each Goal</h2>
+ <canvas id="pie-chart" width="200" height="200"></canvas>
+
+ 
+
+
+  <h2>Daily Consistency</h2>
+<canvas id="bar-graph" width="200" height="200"></canvas>
+  
 
   <div class="stats-component">
     <p><i class="fas fa-award"></i> Total Points: {{user.totalPoints}}</p>
