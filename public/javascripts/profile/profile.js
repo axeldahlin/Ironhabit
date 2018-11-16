@@ -34,50 +34,8 @@ ourApi.get()
     }
     });
 
-<<<<<<< HEAD
-    var barGraph = new Chart(ctxBar, {
-      type: 'horizontalBar',
-      data: {
-        datasets: [{
-          data: Object.values(res.data.dailySuccessRate),
-          backgroundColor: [
-            "#068587",
-            "black",
-            "#068587",
-            "black",
-            "#068587",
-            "black"
-          ]
-        }],
-        labels: Object.keys(res.data.dailySuccessRate)
-      },
-      options: {
-        responsive: true,
-        legend: {
-          display: false,
-          labels: {
-            fontSize: 70
-          },
-        },
-        scales: {
-          yAxes: [{
-            ticks: {
-              fontSize: 70
-            }
-          }],
-          xAxes: [{
-            ticks: {
-              stepSize: 0.25,
-              fontSize: 70
-            }
-          }]
-        }
-      }
-    })
-=======
     Chart.defaults.global.defaultFontFamily = "Lato";
 Chart.defaults.global.defaultFontSize = 18;
->>>>>>> 227dfe3b697531533141516a52c5a02ee8caeaef
 
 var densityData = {
   label: 'Consistency Percentage',
