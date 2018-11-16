@@ -1,5 +1,5 @@
 
-
+const tools        = require('./time-functions')
 
 let toggleValueAndPoints = function(goal) {
   let newValue;
@@ -32,10 +32,30 @@ let determineWeekSuccess = function(goal) {
 
 
 
+let createDisplayData = function(goal, size) {
+  let valuesOnly = goal.history.map(function(date){
+    return date.value
+  })
+  if (valuesOnly[valuesOnly.length - 1] === 1) {
+    valuesOnly[valuesOnly.length - 1] = "today-active"
+  } else {
+    valuesOnly[valuesOnly.length - 1] = "today-inactive"
+  }
+  for (let i = 0; i<6-tools.currentDay();i++){
+    valuesOnly.push(0);
+  }
+  for (let i = 0; i<size;i++) {
+    valuesOnly.unshift(0);
+  }
+  return valuesOnly.slice(valuesOnly.length-size)
+}
+
+
 
 exports.toggleValueAndPoints = toggleValueAndPoints
 exports.updateGoalPointValue = updateGoalPointValue
 exports.determineWeekSuccess = determineWeekSuccess
+exports.createDisplayData = createDisplayData
 
 
 

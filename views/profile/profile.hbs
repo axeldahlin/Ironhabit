@@ -1,32 +1,22 @@
- 
- <div class="header">
+<div class="header">
   <img src="{{user.avatarImgPath}}" alt="">
   <form action="/uploadAvatarImg/{{user.id}}" method="post" enctype="multipart/form-data">
     <input type="file" name="photo">
     <br>
     <input type="submit" value="SAVE">
-  </form>
-
- </div>
+  </form> 
+</div>
 
 <div class="main-container profile-container">
 
-
-
   <h3>Overall Consistency</h3>
- <canvas id="pie-chart" width="200" height="200"></canvas>
-
- 
-<br>
+  <canvas id="pie-chart" width="200" height="200"></canvas>
+  <br>
 
   <h3>Daily Consistency</h3>
-
   <div class="bar-container">
     <canvas id="densityChart" width="600" height="400"></canvas>
-
   </div>
-
-  
 
   <div class="stats-component">
     <p><i class="fas fa-award"></i> Total Points: {{user.totalPoints}}</p>
@@ -52,17 +42,7 @@
     <p><i class="fas fa-skull-crossbones"></i> Habits Skipped: {{user.didHabitDays.missedDays}}</p>
   </div>
 
-
-
 </div>
-
-
-
-
-
-
-
-
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
