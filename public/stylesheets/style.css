@@ -90,13 +90,8 @@ button:hover {
   width: 90px; }
 
 #pie-chart {
-  width: 300px !important;
-  height: 300px !important;
-  margin-bottom: 20px; }
-
-#bar-graph {
-  width: 300px !important;
-  height: 300px !important;
+  width: 200px !important;
+  height: 200px !important;
   margin-bottom: 20px; }
 
 #bar-graph {
@@ -215,33 +210,8 @@ img {
 
 .delete-btn {
   position: absolute;
-<<<<<<< HEAD
-  top: 20px;
-  right: 20px; }
-
-/* ================================= 
-  Media Queries
-==================================== */
-@media (min-width: 1010px) {
-  .home-container {
-    padding: 50px 100px;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap; }
-  .goal {
-    width: 400px;
-    margin-top: 0;
-    flex-grow: 1;
-    margin: 20px; }
-  .goal:first-child {
-    margin-top: 20px; }
-  .daily-consistency {
-    width: 310px;
-    height: 310px; } }
-=======
   top: 10px;
   right: 10px; }
->>>>>>> 227dfe3b697531533141516a52c5a02ee8caeaef
 
 /* ================================= 
 Signed Out Styles 

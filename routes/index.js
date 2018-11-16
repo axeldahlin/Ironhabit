@@ -1,37 +1,19 @@
-const express = require('express');
-const router  = express.Router();
-const Goal = require("../models/Goal");
-const User = require("../models/User");
-const tools      = require('../time-functions')
-const display      = require('../display-functions')
-const stats      = require('../stats-functions')
-const helper      = require('../helper-functions')
+const express   = require('express');
+const router    = express.Router();
+const Goal      = require("../models/Goal");
+const User      = require("../models/User");
+const tools     = require('../time-functions')
+const display   = require('../display-functions')
+const stats     = require('../stats-functions')
+const helper    = require('../helper-functions')
 
 
+//Middleware for checking if user is logged in
 function isLoggedIn(req,res,next) {
   if (req.user) return next();
   else {
     res.render('signedOut');
   }
-}
-
-
-function createDisplayData(goal, size) {
-  let valuesOnly = goal.history.map(function(date){
-    return date.value
-  })
-  if (valuesOnly[valuesOnly.length - 1] === 1) {
-    valuesOnly[valuesOnly.length - 1] = "today-active"
-  } else {
-    valuesOnly[valuesOnly.length - 1] = "today-inactive"
-  }
-  for (let i = 0; i<6-tools.currentDay();i++){
-    valuesOnly.push(0);
-  }
-  for (let i = 0; i<size;i++) {
-    valuesOnly.unshift(0);
-  }
-  return valuesOnly.slice(valuesOnly.length-size)
 }
 
 
@@ -42,7 +24,7 @@ router.get('/', isLoggedIn, (req, res, next) => {
   })
   .then(goals=> {
     for (let i = 0; i<goals.length; i++) {
-      goals[i].displayData = createDisplayData(goals[i],42);
+      goals[i].displayData = helper.createDisplayData(goals[i],42);
       goals[i].streak = stats.currentDaysStreak(goals[i]);
       goals[i].didHabitToday = stats.didHabitToday(goals[i]);
     }
@@ -53,14 +35,12 @@ router.get('/', isLoggedIn, (req, res, next) => {
   })
 });
 
-/* GET  Post a New Goal Page */
+
+/* GET  New Goal Page */
 router.get('/new-goal', isLoggedIn, (req,res,next)=> {
   res.render('new-goal')
 })
 
-router.get('/charts', (req,res,next)=>{
-  res.render('charts')
-})
 
 //POST new goal to the database
 router.post('/new-goal', isLoggedIn, (req,res,next)=> {
@@ -100,12 +80,8 @@ router.post('/update/:id', isLoggedIn, (req,res,next)=> {
     Goal.findByIdAndUpdate(req.params.id,{
       history: newHistory                                 //replaces in Mongo
     })
-    .then(goal=>{
-      console.log("goal value updated", goal.title)
-    })
-    .catch(err=> {
-      console.log("there was an error", err)
-    })
+    .then(goal=>console.log("goal value updated", goal.title))
+    .catch(err=> console.log("there was an error", err))
     return [user,pointChange]
   })
   .then(result => {             //User Update: user's totalPoints based  
@@ -113,81 +89,18 @@ router.post('/update/:id', isLoggedIn, (req,res,next)=> {
     User.findByIdAndUpdate(user._id, {
       $inc: {totalPoints: result[1]}
     })
-    .then(user=>{
-      console.log("User points updated", user.totalPoints)
-      res.redirect('/')
-    })
-    .catch(err=>{
-      console.log("error", err)
-    })
+    .then(user=>res.redirect('/'))
+    .catch(err=>console.log("error", err))
   })
-  .catch(err=>{
-    console.log("Promise All error",err)
-  })
-})
-
-router.post('/deactivate/update/:id', isLoggedIn, (req,res,next)=> {
-  let newValue;
-  var pointChange;
-  Goal.findById(req.params.id)
-    .then(goal => {
-      if (goal.history[goal.history.length -1].value === 1) {
-        newValue = 0;
-        pointChange = -goal.pointValue
-      } else {
-        newValue = 1;
-        pointChange = goal.pointValue
-      }
-      return goal;
-    })
-    .then(goal => {
-      const index = goal.history.length - 1;
-      let updatedHistory = goal.history;
-      updatedHistory[index].value = newValue;
-      Goal.findByIdAndUpdate(req.params.id,{ 
-          history: updatedHistory
-      })
-      .then(goal=> {
-        console.log("The value was pushed to goal!", goal.history)
-      })
-      .catch(err=> {
-        console.log("Error at POST Update/ID",err)
-      })
-    })
-    .then(goal => {
-      stats.addPointsToUser(goal,req.user)
-      User.findByIdAndUpdate(req.user._id, {
-        totalPoints: pointChange
-      })
-      console.log("req.user",req.user)
-      res.redirect('/');
-    })
-    .catch(err => {
-      console.log("Some error at Post Update",err)
-    })
+  .catch(err=>console.log("Promise All error",err))
 })
 
 
-
-
-
-
-
-
-router.post('/quitHabit/:id', isLoggedIn, (req,res,next)=> {
+router.post('/quit-habit/:id', isLoggedIn, (req,res,next)=> {
   Goal.findByIdAndUpdate(req.params.id, {currentlyDoing: false})
     .then(_ => {res.redirect('/');})
+    .catch(err=>{console.log("Error at Post / Quit Habit", err)})
 })
-
-
-
-/* GET home page */
-router.get('/api/myPerfomance', (req, res, next) => {
-
-
-  res.send({hello: 'test from API'})
-
-});
 
 
 module.exports = router;

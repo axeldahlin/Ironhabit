@@ -8,17 +8,13 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-
-const session    = require("express-session");
-const MongoStore = require('connect-mongo')(session);
-const flash      = require("connect-flash");
-const Goal       = require("./models/Goal");
-const tools      = require('./time-functions')
-const helper     = require('./helper-functions')
-
-
-const User       = require("./models/User");
-
+const session      = require("express-session");
+const MongoStore   = require('connect-mongo')(session);
+const flash        = require("connect-flash");
+const tools        = require('./time-functions')
+const helper       = require('./helper-functions')
+const Goal         = require("./models/Goal");
+const User         = require("./models/User");
     
 
 mongoose
@@ -41,14 +37,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Express View engine setup
 
+// Express View engine setup
 app.use(require('node-sass-middleware')({
   src:  path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-      
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -136,16 +132,11 @@ function dailyUpdate(goal) {
 }
 
 
-
-
 //Middlewear to check if the weekly update has been performed
 app.use((req,res,next)=> {
   Goal.find({nextWeekUpdate: {$lte: tools.currentDate()}})
   .then(goals=>{
-    console.log('GOALS in need of WEEKLY', goals.length, goals)
     for (let i = 0; i<goals.length; i++) {
-      console.log("updating goals")
-      // storeWeekSummary(goals[i])
       weeklyUpdate(goals[i])
     }
     next();
@@ -154,7 +145,6 @@ app.use((req,res,next)=> {
     console.log("ERROR at Weekly Update Middlewear", err)
   })
 })
-
 
 
 //Daily Update: Middlewear to check if there are un-updated goals
@@ -173,25 +163,11 @@ app.use((req,res,next)=> {
 })
 
 
-
-
-
-
-
-
-const index = require('./routes/index');
-app.use('/', index);
-
-const api = require('./routes/api');
-app.use('/', api);
-
-const profile = require('./routes/profile');
-app.use('/', profile);
-
-const about = require('./routes/about');
-app.use('/', about);
-
-const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
+app.use('/', require('./routes/index'));
+app.use('/', require('./routes/api'));
+app.use('/', require('./routes/profile'));
+app.use('/', require('./routes/about'));
+app.use('/auth', require('./routes/auth'));
       
+
 module.exports = app;

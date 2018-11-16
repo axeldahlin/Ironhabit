@@ -6,7 +6,6 @@
     <h3>You are not currently logged in.</h3>
 {{/if}}
 </div>
-
 <div class="main-container home-container">
   {{#each goals}}
   {{#if this.currentlyDoing}}
@@ -20,8 +19,6 @@
       <div class="goal-stats-component">
         <h4>Current Streak</h4>
         <h2>{{this.streak}} days</h2>
-       
-      
       <div class="chart-wrapper">
           <span>S</span>
           <span>M</span>
@@ -46,7 +43,7 @@
         </button>
       </form>
       </div>
-      <form action="/quitHabit/{{this._id}}" method="POST">
+      <form action="/quit-habit/{{this._id}}" method="POST">
         <button type="submit" class="btn btn-sm btn-danger delete-btn">X</button>
       </form>
       </div>
