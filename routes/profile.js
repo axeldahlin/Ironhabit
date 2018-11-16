@@ -5,8 +5,16 @@ const User        = require("../models/User");
 const uploadCloud = require('../config/cloudinary.js');
 const stats       = require('../stats-functions')
 
+//Middleware for checking if user is logged in
+function isLoggedIn(req,res,next) {
+  if (req.user) return next();
+  else {
+    res.render('signedOut');
+  }
+}
 
-router.get('/profile', (req, res, next) => {
+
+router.get('/profile', isLoggedIn, (req, res, next) => {
   const user = req.user;
   user.weeklyConsistency = stats.percentSuccessHabitWeeks(user)
   Goal.find({_user: user._id})
@@ -23,7 +31,7 @@ router.get('/profile', (req, res, next) => {
 });
 
 
-router.post('/uploadAvatarImg/:id', uploadCloud.single('photo'), (req, res, next) => {
+router.post('/uploadAvatarImg/:id', isLoggedIn, uploadCloud.single('photo'), (req, res, next) => {
   User.findByIdAndUpdate(req.params.id, {
     avatarImgPath: req.file.url
   })
