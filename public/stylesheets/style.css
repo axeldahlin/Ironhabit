@@ -21,6 +21,9 @@ select:focus {
 button:hover {
   cursor: pointer; }
 
+.logo {
+  font-size: 30px; }
+
 /* ================================= 
   General Styles
 ==================================== */
@@ -59,11 +62,19 @@ button:hover {
 /* ================================= 
   Profile Page Styles 
 ==================================== */
+.bar-container {
+  width: 90%;
+  margin: 0 auto; }
+
+.profile-container {
+  padding: 30px 15px; }
+
 .encourage-message {
-  color: #068587;
+  color: #000;
   font-size: 30px;
-  width: 300px;
-  margin-bottom: 20px; }
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center; }
 
 .main-container form {
   display: flex;
@@ -78,6 +89,11 @@ button:hover {
 #pie-chart {
   width: 200px !important;
   height: 200px !important;
+  margin-bottom: 20px; }
+
+#bar-graph {
+  width: 330px !important;
+  height: 300px !important;
   margin-bottom: 20px; }
 
 img {
@@ -99,12 +115,13 @@ img {
 ==================================== */
 .welcome-message {
   font-weight: 800;
-  font-size: 45px; }
+  font-size: 30px;
+  text-align: center; }
 
 .home-container {
   background: #222121;
-  padding-top: 0;
-  min-height: calc(100vh - 500px); }
+  min-height: calc(100vh - 500px);
+  padding: 30px 10px; }
 
 .square {
   background-color: #444;
@@ -119,7 +136,13 @@ img {
   grid-gap: 7px 22px;
   grid-template-columns: repeat(7, 15px);
   grid-template-rows: repeat(6, 15px);
-  grid-auto-flow: row; }
+  grid-auto-flow: row;
+  margin-top: 10px; }
+
+.chart-wrapper span {
+  text-align: center;
+  margin: 0 auto;
+  width: 35px; }
 
 .goal:first-child {
   margin-top: 0; }
@@ -130,7 +153,7 @@ img {
   align-items: center;
   justify-content: space-around;
   border: 1px solid black;
-  padding: 20px;
+  padding: 45px 10px 20px 10px;
   margin: 20px 0;
   border-radius: 20px;
   background: white;
@@ -139,9 +162,8 @@ img {
 
 .goal-title {
   text-align: center;
-  font-size: 20px;
+  font-size: 22px;
   margin-top: 0px;
-  align-self: flex-start;
   border-bottom: solid black 2px; }
 
 .color-code-0 {
@@ -156,15 +178,18 @@ img {
   flex-direction: column; }
 
 .goal-stats-component h4 {
-  font-size: 15px;
-  margin-bottom: 0; }
+  font-size: 20px;
+  margin-bottom: 0;
+  text-align: center;
+  margin-top: 15px; }
 
 .goal-stats-component h2 {
-  font-size: 75px;
-  font-weight: 700; }
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center; }
 
 .color-code-today-active {
-  background-color: #068587;
+  background-color: #99BE7F;
   border: 2px solid black; }
 
 .color-code-today-inactive {
@@ -182,39 +207,11 @@ img {
 
 .delete-btn {
   position: absolute;
-  top: 20px;
-  right: 20px; }
+  top: 10px;
+  right: 10px; }
 
 /* ================================= 
-  Media Queries
-==================================== */
-@media (min-width: 1010px) {
-  .home-container {
-    padding: 50px 100px;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap; }
-  .goal {
-    width: 400px;
-    margin-top: 0;
-    flex-grow: 1;
-    margin: 20px; }
-  .goal:first-child {
-    margin-top: 20px; }
-  #pie-chart {
-    width: 200px !important;
-    height: 200px !important;
-    margin-bottom: 20px; }
-  #bar-graph {
-    width: 330px !important;
-    height: 300px !important;
-    margin-bottom: 20px; }
-  .daily-consistency {
-    width: 310px;
-    height: 310px; } }
-
-/* ================================= 
-  Signed Out Styles 
+Signed Out Styles 
 ==================================== */
 .signed-out-btn-div {
   width: 100%; }
@@ -232,7 +229,7 @@ img {
   text-decoration: none; }
 
 /* ================================= 
-  create Goals Styles Styles 
+create Goals Styles Styles 
 ==================================== */
 .habit-input, select {
   width: 100%;
@@ -266,5 +263,45 @@ select {
 .create-coal-container {
   width: 70%;
   margin: 0 auto; }
+
+/* ================================= 
+    Media Queries
+  ==================================== */
+@media (min-width: 769px) {
+  .profile-container {
+    padding: 0 30px; }
+  .encourage-message {
+    font-size: 40px; }
+  .home-container {
+    padding: 50px 100px;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap; }
+  .home-container > * {
+    flex: 1 1 330px; }
+  .goal {
+    margin: 20px; }
+  .goal:first-child {
+    margin-top: 20px; }
+  .goal-title {
+    font-size: 27px; }
+  .welcome-message {
+    font-size: 50px; } }
+
+@media (min-width: 1010px) {
+  #pie-chart {
+    width: 400px !important;
+    height: 400px !important;
+    margin-bottom: 20px; }
+  #bar-graph {
+    width: 1000px !important;
+    height: 600px !important;
+    margin-bottom: 20px; }
+  .daily-consistency {
+    width: 310px;
+    height: 310px; }
+  .bar-container {
+    width: 70%;
+    margin: 0 auto; } }
 
 /*# sourceMappingURL=style.css.map */

@@ -9,27 +9,23 @@
 
  </div>
 
-<div class="main-container">
-
-  <p class="encourage-message">Look what you have accomplished so far.</p>
-
-  {{!-- <div class="goals-progress">
-    {{#each goals}}
-        {{this.title}}
-  <progress max="{{this.history.length}}" value="{{this.dailySuccesses}}"></progress>
-  <br>
-    {{/each}}
-  </div> --}}
+<div class="main-container profile-container">
 
 
-  <h3>Daily Consistency for Each Goal</h3>
+
+  <h3>Over All Consistency</h3>
  <canvas id="pie-chart" width="200" height="200"></canvas>
 
  
 <br>
 
   <h3>Daily Consistency</h3>
-<canvas id="bar-graph" width="200" height="200"></canvas>
+
+  <div class="bar-container">
+    <canvas id="densityChart" width="600" height="400"></canvas>
+
+  </div>
+
   
 
   <div class="stats-component">
