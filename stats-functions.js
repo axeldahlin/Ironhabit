@@ -22,7 +22,7 @@ let numberDaysAttempted = function(goal) {
 //
 let percentSuccessHabitWeeks = function(user) {
   let val = user.pastGoals.filter(week=>{return week.success}).length/user.pastGoals.length
-  return convertToPercentageString(val)
+  return isNaN(val) ? "--" : convertToPercentageString(val)
 }
 
 
@@ -84,15 +84,13 @@ function didHabitToday(goal) {
   return false;
 }
 
-
-
-exports.didHabitToday = didHabitToday
 exports.getSuccessDay = getSuccessDay
+exports.didHabitToday = didHabitToday
 exports.currentDaysStreak = currentDaysStreak
 exports.numberDaysAttempted = numberDaysAttempted
 exports.numberDaysSuccessful = numberDaysSuccessful
-exports.numberDailySuccessesGoal = numberDailySuccessesGoal
 exports.percentSuccessHabitWeeks = percentSuccessHabitWeeks
+exports.numberDailySuccessesGoal = numberDailySuccessesGoal
 exports.determineLongestCurrentStreak = determineLongestCurrentStreak
 
 
