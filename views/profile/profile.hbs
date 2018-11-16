@@ -13,23 +13,19 @@
 
   <p class="encourage-message">Look what you have accomplished so far.</p>
 
-  {{!-- <div class="goals-progress">
-    {{#each goals}}
-        {{this.title}}
-  <progress max="{{this.history.length}}" value="{{this.dailySuccesses}}"></progress>
-  <br>
-    {{/each}}
-  </div> --}}
-
 
   <h3>Daily Consistency for Each Goal</h3>
- <canvas id="pie-chart" width="200" height="200"></canvas>
+ <canvas id="pie-chart"></canvas>
 
  
 <br>
 
-  <h3>Daily Consistency</h3>
-<canvas id="bar-graph" width="200" height="200"></canvas>
+<h3>Daily Consistency</h3>
+<div class="bar-graph-wrapper">
+<canvas id="bar-graph"></canvas>
+</div>
+  
+
   
 
   <div class="stats-component">

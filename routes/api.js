@@ -1,16 +1,16 @@
-const express = require('express');
-const router  = express.Router();
-const Goal = require("../models/Goal");
-const User = require("../models/User");
-const tools      = require('../time-functions')
+const express      = require('express');
+const router       = express.Router();
+const Goal         = require("../models/Goal");
+const User         = require("../models/User");
+const tools        = require('../time-functions')
 const display      = require('../display-functions')
-const stats      = require('../stats-functions')
-const helper      = require('../helper-functions')
+const stats        = require('../stats-functions')
+const helper       = require('../helper-functions')
 
 
 router.get('/api/userdata', (req,res,next)=> {
   let user = req.user
-  Goal.find({_user: user.id})
+  Goal.find({_user: user.id, currentlyDoing: true})
   .then(goals=>{
     let dailySuccessRate = {}
     for (let i = 0; i<goals.length; i++) {

@@ -68,7 +68,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   
 
 // default value for title local
-app.locals.title = 'Ironhack project 2';
+app.locals.title = 'Ironhabit';
 
 
 // Enable authentication using session + passport
@@ -88,20 +88,6 @@ app.use((req,res,next)=> {
   }
   next();
 })
-
-//  Fake cron task to run code every minute
-let lastMin = new Date().getMinutes()
-setInterval(() => {
-  let curMin = new Date().getMinutes()
-  if (curMin !== lastMin) {
-    console.log("New minute, I can perform some task")
-    // Check users if the failed or succeeded
-    lastMin = curMin
-  }
-}, 10000)
-
-
-
 
 //Weekly and Daily Updates. Updates a goal in Mongo by pushing {date:, value:} to history
 // array and updating lastUpdate field.
@@ -145,7 +131,7 @@ function dailyUpdate(goal) {
     console.log("dailyUpdate -- goal updated: ", goal)
   })
   .catch(err=> {
-    console.log("Error at dailyUpdate",err)
+    console.log("Error at dailyUpdate", err)
   })
 }
 
@@ -176,9 +162,7 @@ app.use((req,res,next)=> {
 app.use((req,res,next)=> {
   Goal.find({lastUpdate: {$lt: tools.currentDate()}})  
   .then(goals=>{
-    console.log("Goals in need of DAILY update!!!!", goals.length, goals)
     for (let i = 0; i<goals.length; i++) {
-      console.log("updating daily goals", goals[i])
       dailyUpdate(goals[i])
     }
     next();
@@ -194,51 +178,6 @@ app.use((req,res,next)=> {
 
 
 
-
-
-//I Suggest we stop using this function
-function getWeekSummary(goal) {
-    let today = tools.currentDate();
-    let wasSuccessful = () => {
-      let lastSevenDays = goal.history.slice(-7); 
-      lastSevenDays = lastSevenDays.map(day => day.value);
-      let sumOfWeek = lastSevenDays.reduce((item, acc)=> {
-      return acc + item; 
-      },0)
-      if (sumOfWeek >= goal.frequency) return true;
-        return false;
-    }
-    return {
-      title: goal.title,
-      success: wasSuccessful(),
-      frequency: goal.frequency,
-      endDate: today,
-    }
-  }
-
-  function storeWeekSummary(goal) {
-    let summary = getWeekSummary(goal);
-    User.findByIdAndUpdate(goal._user, {
-      $push: {pastGoals: summary}
-    })
-    .then(user => {
-
-   
-
-      const nextSunday = tools.startDayOfFollowingWeek();
-
-      console.log('DEBUG goal._id:', goal._id)
-
-
-
-      Goal.findByIdAndUpdate(goal._id, {
-        nextWeekUpdate: nextSunday
-      })
-      .then(goal=> {
-        console.log('DEBUG goal:', goal)
-      })
-    })
-  }
 
 const index = require('./routes/index');
 app.use('/', index);

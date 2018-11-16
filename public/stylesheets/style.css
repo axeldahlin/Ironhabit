@@ -79,8 +79,13 @@ button:hover {
   width: 90px; }
 
 #pie-chart {
-  width: 200px !important;
-  height: 200px !important;
+  width: 300px !important;
+  height: 300px !important;
+  margin-bottom: 20px; }
+
+#bar-graph {
+  width: 300px !important;
+  height: 300px !important;
   margin-bottom: 20px; }
 
 img {
@@ -204,14 +209,6 @@ img {
     margin: 20px; }
   .goal:first-child {
     margin-top: 20px; }
-  #pie-chart {
-    width: 200px !important;
-    height: 200px !important;
-    margin-bottom: 20px; }
-  #bar-graph {
-    width: 330px !important;
-    height: 300px !important;
-    margin-bottom: 20px; }
   .daily-consistency {
     width: 310px;
     height: 310px; } }

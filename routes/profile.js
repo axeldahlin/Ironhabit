@@ -20,33 +20,20 @@ router.get('/profile', (req, res, next) => {
     }
     res.render('profile/profile', {user,goals})
   })
-  .catch(err=>{
-    console.log("Error at /Profile", err)
-  })
+  .catch(err=>{console.log("Error at /Profile", err)})
 });
-
-
-
 
 router.post('/uploadAvatarImg/:id', uploadCloud.single('photo'), (req, res, next) => {
   // const { message, picName } = req.body;
   const user = req.user;
-
   const id = req.params.id;
-
-  // console.log('DEBUG id:', id)
-
-  console.log('DEBUG req.file.url:', req.file.url)
-
   User.findByIdAndUpdate(id, {
     avatarImgPath: req.file.url
   })
   .then(_ => {
     res.redirect('/profile')
   })
+  .catch(err=>{console.log("error at Post / upload",err)})
 });
-
-
-
 
 module.exports = router;

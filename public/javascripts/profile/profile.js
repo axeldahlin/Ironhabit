@@ -56,19 +56,19 @@ ourApi.get()
         legend: {
           display: false,
           labels: {
-            fontSize: 36
+            fontSize: 70
           },
         },
         scales: {
           yAxes: [{
             ticks: {
-              fontSize: 36
+              fontSize: 70
             }
           }],
           xAxes: [{
             ticks: {
               stepSize: 0.25,
-              fontSize: 36
+              fontSize: 70
             }
           }]
         }
