@@ -24,6 +24,10 @@ button:hover {
 .logo {
   font-size: 30px; }
 
+.header-h2 {
+  text-align: center;
+  color: white; }
+
 /* ================================= 
   General Styles
 ==================================== */
@@ -267,12 +271,17 @@ select {
   width: 70%;
   margin: 0 auto; }
 
+.signed-out-text {
+  color: white;
+  width: 90%;
+  margin: 30px auto; }
+
 /* ================================= 
     Media Queries
   ==================================== */
 @media (min-width: 769px) {
   .profile-container {
-    padding: 0 30px; }
+    padding: 60px 30px; }
   .encourage-message {
     font-size: 40px; }
   .home-container {

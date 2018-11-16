@@ -33,6 +33,10 @@ button:hover {
 .logo {
   font-size: 30px;
 }
+.header-h2 {
+  text-align: center;
+  color: white;
+}
 
 /* ================================= 
   General Styles
@@ -312,6 +316,13 @@ select {
   width: 70%;
   margin: 0 auto; 
 }
+
+
+.signed-out-text {
+  color: white;
+  width: 90%; 
+  margin: 30px auto;
+}
   
 
   /* ================================= 
@@ -322,7 +333,7 @@ select {
 
 
     .profile-container{
-    padding: 0 30px;
+    padding: 60px 30px;
     }
 
     .encourage-message {
