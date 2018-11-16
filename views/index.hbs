@@ -10,18 +10,30 @@
 <div class="main-container home-container">
   {{#each goals}}
   {{#if this.currentlyDoing}}
-
-
-
     <div class="goal">
-        <h2 class="goal-title">{{this.title}}</h2>
-      <div class="chart-wrapper">
-          {{#each this.displayData}}
-            <div class="square color-code-{{this}}"></div>
-        {{/each}}
+      <h2 class="goal-title">{{this.title}}</h2>
+      <h5>Target: {{this.frequency}}/week</h5>
+      <div class="goal-stats-component">
+        <h4>Today this habit is worth</h4>
+        <h2>{{this.pointValue}} points</h2>
       </div>
-   
-
+      <div class="goal-stats-component">
+        <h4>Current Streak</h4>
+        <h2>{{this.streak}} days</h2>
+       
+      
+      <div class="chart-wrapper">
+          <span>S</span>
+          <span>M</span>
+          <span>T</span>
+          <span>W</span>
+          <span>T</span>
+          <span>F</span>
+          <span>S</span>
+      {{#each this.displayData}}
+        <div class="square color-code-{{this}}"></div>
+      {{/each}}
+      </div>
       <div>
       <br>
       <form action="/update/{{this._id}}" method="POST">
@@ -33,19 +45,7 @@
           {{/if}}
         </button>
       </form>
-
-
-      <div class="goal-stats-component">
-        <h4>Today this habit is worth</h4>
-        <h2>{{this.pointValue}} points</h2>
       </div>
-
-      <div class="goal-stats-component">
-
-        <h4>Current Streak</h4>
-        <h2>{{this.streak}} days</h2>
-      </div>
-      
       <form action="/quitHabit/{{this._id}}" method="POST">
         <button type="submit" class="btn btn-sm btn-danger delete-btn">X</button>
       </form>
@@ -53,9 +53,4 @@
     </div>
   {{/if}}
   {{/each}}
-
- 
-
-
-
 </div>
