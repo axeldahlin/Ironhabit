@@ -6,6 +6,12 @@ A website for tracking habits with feedback in the form of statistics and diagra
 
 To play with the site head to: https://ironhabit.herokuapp.com
 
+![alt text](https://raw.githubusercontent.com/aioimo/ironhackproject2/master/public/images/Screenshot%20from%202019-01-13%2016-57-24.png "Ironhabit")
+
+![alt text](https://raw.githubusercontent.com/aioimo/ironhackproject2/master/public/images/Screenshot%20from%202019-01-13%2016-59-40.png "Ironhabit")
+
+![alt text](https://raw.githubusercontent.com/aioimo/ironhackproject2/master/public/images/Screenshot%20from%202019-01-13%2016-59-23.png "Ironhabit")
+
 ## Setup
 
 If you’d like to view my project in your browser:
