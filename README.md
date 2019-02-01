@@ -43,6 +43,16 @@ Now run:
 
 ``` $ npm run dev ```
 
+## Technologies Used
+- Node
+- MongoDB
+- Mongoose
+- Express
+- Handlebars
+- Passport
+- Bootstrap
+- Chart.js
+
 ## Team Members
 
 This was a group exercise completed by [Axel Dahlin](https://github.com/axeldahlin) and [Anthony Ioimo](https://github.com/aioimo).
