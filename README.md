@@ -16,8 +16,8 @@ To play with the site head to: https://ironhabit.herokuapp.com
 
 If you’d like to view my project in your browser:
 ```
-$ git clone https://github.com/aioimo/ironhackproject2.git
-$ cd 2-backend-project
+$ git clone https://github.com/axeldahlin/Ironhabit.git
+$ cd Ironhabit
 $ npm i
 $ touch .env
 
